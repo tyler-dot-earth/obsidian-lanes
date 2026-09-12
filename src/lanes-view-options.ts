@@ -19,6 +19,9 @@ export const LANES_CARD_MONOSPACE_PROPERTIES_CONFIG_KEY = 'cardMonospaceProperti
 /** View config key for properties rendered as colored value chips. */
 export const LANES_CARD_BADGE_PROPERTIES_CONFIG_KEY = 'cardBadgeProperties'
 
+/** View config key for properties treated as worktree directories. */
+export const LANES_CARD_WORKTREE_PROPERTIES_CONFIG_KEY = 'cardWorktreeProperties'
+
 /** View config key for the frontmatter property that stores manual card order. */
 export const LANES_ORDER_PROPERTY_CONFIG_KEY = 'orderProperty'
 
@@ -141,6 +144,12 @@ export const readLanesCardBadgePropertyIds = (
 	config: BasesViewConfig,
 ): readonly BasesPropertyId[] =>
 	readLanesPropertyIdList(config, LANES_CARD_BADGE_PROPERTIES_CONFIG_KEY)
+
+/** Property ids listed under Worktree fields. */
+export const readLanesCardWorktreePropertyIds = (
+	config: BasesViewConfig,
+): readonly BasesPropertyId[] =>
+	readLanesPropertyIdList(config, LANES_CARD_WORKTREE_PROPERTIES_CONFIG_KEY)
 
 /** Frontmatter property that stores fractional indexes when sort is manual. */
 export const readLanesOrderProperty = (config: BasesViewConfig): string => {

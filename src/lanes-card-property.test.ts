@@ -4,8 +4,19 @@ import {
 	lanesPropertyFieldFromTexts,
 	lanesUrlButtonLabel,
 	lanesUrlButtonLabels,
+	lanesWorktreeButtonLabel,
 	parseLanesPropertyLink,
 } from '#src/lanes-card-property'
+
+describe('lanesWorktreeButtonLabel', () => {
+	it('uses the last path segment', () => {
+		assert.strictEqual(lanesWorktreeButtonLabel('/tmp/worktree/feature'), 'feature')
+	})
+
+	it('keeps a bare name', () => {
+		assert.strictEqual(lanesWorktreeButtonLabel('feature'), 'feature')
+	})
+})
 
 describe('lanesUrlButtonLabel', () => {
 	it('uses the last short path segment', () => {
@@ -108,6 +119,18 @@ describe('lanesPropertyFieldFromTexts', () => {
 		})
 
 		assert.deepStrictEqual(field?.texts, ['apps/web', 'packages/ui', 'packages/engine'])
+	})
+
+	it('marks a field as a worktree path', () => {
+		const field = lanesPropertyFieldFromTexts({
+			name: 'Worktree',
+			texts: ['/tmp/worktree/feature'],
+			asLinks: false,
+			worktree: true,
+		})
+
+		assert.strictEqual(field?.worktree, true)
+		assert.deepStrictEqual(field?.texts, ['/tmp/worktree/feature'])
 	})
 
 	it('marks a field as monospace', () => {

@@ -245,7 +245,8 @@
 
 .lanes-card-property-mono .lanes-card-property-text,
 .lanes-card-property-mono .lanes-card-property-link,
-.lanes-card-property-mono .lanes-card-property-button {
+.lanes-card-property-mono .lanes-card-property-button,
+.lanes-card-property-mono .lanes-card-property-worktree {
 	font-family: var(--font-monospace);
 }
 

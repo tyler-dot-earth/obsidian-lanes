@@ -37,6 +37,7 @@ import {
 	type LanesCardPropertyField,
 	type LanesCardPropertyLink,
 	lanesPropertyFieldFromTexts,
+	lanesWorktreeButtonLabel,
 } from '#src/lanes-card-property'
 import {
 	compareLanesCardSort,
@@ -69,7 +70,7 @@ import {
 	forestWorktreeDirectoryToOpen,
 	type ForestPluginApi,
 	getForestPluginApi,
-	lanesNoteWorktreePath,
+	lanesWorktreePathsForFile,
 } from '#src/lanes-forest-plugin'
 import { lanesFrontmatterKey } from '#src/lanes-frontmatter-key'
 import {
@@ -86,6 +87,7 @@ import {
 	LANES_CARD_BADGE_PROPERTIES_CONFIG_KEY,
 	LANES_CARD_LINK_PROPERTIES_CONFIG_KEY,
 	LANES_CARD_MONOSPACE_PROPERTIES_CONFIG_KEY,
+	LANES_CARD_WORKTREE_PROPERTIES_CONFIG_KEY,
 	LANES_COVER_PROPERTY_CONFIG_KEY,
 	LANES_FILL_WIDTH_CONFIG_KEY,
 	LANES_ORDER_PROPERTY_CONFIG_KEY,
@@ -95,6 +97,7 @@ import {
 	readLanesCardBadgePropertyIds,
 	readLanesCardLinkPropertyIds,
 	readLanesCardMonospacePropertyIds,
+	readLanesCardWorktreePropertyIds,
 	readLanesCoverPropertyId,
 	readLanesFillWidth,
 	readLanesGroupPropertyId,
@@ -176,6 +179,7 @@ type LanesCardPropertyHandlers = {
 	readonly imageSrc: (href: string) => string | null
 	readonly badgeColor: (propertyId: string, value: string) => string | null
 	readonly onBadgeContextMenu: (propertyId: string, value: string, event: MouseEvent) => void
+	readonly onWorktreePath: (path: string) => void
 }
 
 const renderLanesCard = (
@@ -442,6 +446,7 @@ export class LanesView extends BasesView {
 		const linkIdSet = new Set(readLanesCardLinkPropertyIds(this.config))
 		const monoIdSet = new Set(readLanesCardMonospacePropertyIds(this.config))
 		const badgeIdSet = new Set(readLanesCardBadgePropertyIds(this.config))
+		const worktreeIdSet = new Set(readLanesCardWorktreePropertyIds(this.config))
 		const skipIds = this.lanesCardSlotPropertyIds()
 
 		for (const propertyId of this.config.getOrder()) {
@@ -450,6 +455,7 @@ export class LanesView extends BasesView {
 					asLinks: linkIdSet.has(propertyId),
 					monospace: monoIdSet.has(propertyId),
 					badge: badgeIdSet.has(propertyId),
+					worktree: worktreeIdSet.has(propertyId),
 				})
 			}
 		}
@@ -495,6 +501,7 @@ export class LanesView extends BasesView {
 			readonly asLinks: boolean
 			readonly monospace: boolean
 			readonly badge: boolean
+			readonly worktree: boolean
 		},
 	): void {
 		const field = lanesPropertyFieldFromTexts({
@@ -503,6 +510,7 @@ export class LanesView extends BasesView {
 			asLinks: flags.asLinks,
 			monospace: flags.monospace,
 			badge: flags.badge,
+			worktree: flags.worktree,
 			propertyId,
 		})
 
@@ -544,6 +552,9 @@ export class LanesView extends BasesView {
 					this.showLanesAccentColorMenu(event, (color) => {
 						this.setLanesBadgeColor(propertyId, value, color)
 					})
+				},
+				onWorktreePath: (path: string): void => {
+					this.openLanesWorktreeDirectory(path)
 				},
 			})
 		}
@@ -880,6 +891,14 @@ export class LanesView extends BasesView {
 				description: 'Checked fields draw as chips. Right-click a chip to set a color.',
 				configKey: LANES_CARD_BADGE_PROPERTIES_CONFIG_KEY,
 				selectedIds: readLanesCardBadgePropertyIds(this.config),
+			})
+		})
+		this.addLanesBoardBarButton(barEl, 'Worktree fields', () => {
+			this.openLanesPropertyChecklist({
+				title: 'Worktree fields',
+				description: 'Checked fields are worktree directories. Click opens the folder in Forest.',
+				configKey: LANES_CARD_WORKTREE_PROPERTIES_CONFIG_KEY,
+				selectedIds: readLanesCardWorktreePropertyIds(this.config),
 			})
 		})
 
@@ -1255,7 +1274,7 @@ export class LanesView extends BasesView {
 
 	private async previewLanesCardForestCopy(forest: ForestPluginApi, file: TFile): Promise<void> {
 		const copies = decodeForestWorktreeCopies(await forest.listCopiesForFile(file.path))
-		const copy = forestCopyMatchingWorktreePath(copies, lanesNoteWorktreePath(this.app, file))
+		const copy = forestCopyMatchingWorktreePath(copies, this.lanesCardWorktreeDirectory(file))
 
 		if (copy === null) {
 			new Notice('Forest: no worktree copy of this note.')
@@ -1271,7 +1290,7 @@ export class LanesView extends BasesView {
 
 		const directory = forestWorktreeDirectoryToOpen({
 			copies,
-			worktreePath: lanesNoteWorktreePath(this.app, file),
+			worktreePath: this.lanesCardWorktreeDirectory(file),
 		})
 
 		if (directory === null) {
@@ -1307,6 +1326,25 @@ export class LanesView extends BasesView {
 		return file instanceof TFile ? file : null
 	}
 
+	private lanesCardWorktreeDirectory(file: TFile): string | null {
+		return (
+			lanesWorktreePathsForFile(this.app, file, readLanesCardWorktreePropertyIds(this.config))[0] ??
+			null
+		)
+	}
+
+	private openLanesWorktreeDirectory(path: string): void {
+		const forest = getForestPluginApi(this.app)
+
+		if (forest === null) {
+			new Notice('Forest: enable Forest to open worktree folders.')
+
+			return
+		}
+
+		forest.openWorktreeDirectory(path)
+	}
+
 	private handleLanesCardClick(event: MouseEvent): void {
 		if (this.ignoreNextCardClick) {
 			this.ignoreNextCardClick = false
@@ -1314,7 +1352,10 @@ export class LanesView extends BasesView {
 			return
 		}
 
-		if (event.target instanceof Element && event.target.closest('a') !== null) {
+		if (
+			event.target instanceof Element &&
+			event.target.closest('a, .lanes-card-property-worktree') !== null
+		) {
 			return
 		}
 
@@ -1418,7 +1459,9 @@ const renderLanesCardProperty = (
 	}
 
 	for (const text of field.texts) {
-		if (field.badge) {
+		if (field.worktree) {
+			renderLanesCardPropertyWorktree(valuesEl, text, handlers)
+		} else if (field.badge) {
 			renderLanesCardPropertyBadge(valuesEl, field.propertyId, text, handlers)
 		} else {
 			valuesEl.createDiv({
@@ -1427,6 +1470,27 @@ const renderLanesCardProperty = (
 			})
 		}
 	}
+}
+
+const renderLanesCardPropertyWorktree = (
+	valuesEl: HTMLElement,
+	path: string,
+	handlers: LanesCardPropertyHandlers,
+): void => {
+	const buttonEl = valuesEl.createEl('button', {
+		cls: 'lanes-card-property-button lanes-card-property-worktree',
+		text: lanesWorktreeButtonLabel(path),
+		attr: {
+			title: path,
+			type: 'button',
+		},
+	})
+
+	buttonEl.addEventListener('click', (event: MouseEvent) => {
+		event.preventDefault()
+		event.stopPropagation()
+		handlers.onWorktreePath(path)
+	})
 }
 
 const renderLanesCardPropertyBadge = (

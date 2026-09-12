@@ -4,6 +4,7 @@ import {
 	decodeForestWorktreeCopies,
 	forestCopyMatchingWorktreePath,
 	forestWorktreeDirectoryToOpen,
+	lanesWorktreePathsFromUnknown,
 } from '#src/lanes-forest-plugin'
 
 const featureCopy = {
@@ -62,6 +63,25 @@ describe('forestWorktreeDirectoryToOpen', () => {
 			}),
 			'/tmp/worktree/other',
 		)
+	})
+})
+
+describe('lanesWorktreePathsFromUnknown', () => {
+	it('keeps a single path', () => {
+		assert.deepStrictEqual(lanesWorktreePathsFromUnknown('/tmp/worktree/feature'), [
+			'/tmp/worktree/feature',
+		])
+	})
+
+	it('keeps a list of paths', () => {
+		assert.deepStrictEqual(lanesWorktreePathsFromUnknown(['/tmp/a', '', '/tmp/b']), [
+			'/tmp/a',
+			'/tmp/b',
+		])
+	})
+
+	it('drops non-paths', () => {
+		assert.deepStrictEqual(lanesWorktreePathsFromUnknown(1), [])
 	})
 })
 

@@ -6,7 +6,7 @@ Board options live on the Bases view, not in a giant plugin settings dump.
 
 ## Status
 
-A Lanes view can be chosen on a Base. The board bar sets group-by, title, cover, in-lane order, and which fields draw as buttons. Visible card fields come from the Bases Properties toolbar. Drag a card to move it; a line shows the drop target. Drag a column title to reorder lanes. Collapse a lane or add a note to it from the column header. Right-click a header for a color.
+A Lanes view can be chosen on a Base. The board bar sets group-by, title, cover, in-lane order, and which fields draw as buttons, monospace, badges, or worktree folders. Visible card fields come from the Bases Properties toolbar. Drag a card to move it; a line shows the drop target. Drag a column title to reorder lanes. Collapse a lane or add a note to it from the column header. Right-click a header for a color.
 
 ## Install for development
 

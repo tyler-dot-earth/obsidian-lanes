@@ -11,6 +11,14 @@ export const LANES_IMAGE_PROPERTY_EXTENSIONS = [
 	'.avif',
 ] as const
 
+/** Last path segment of a worktree directory, for card buttons. */
+export const lanesWorktreeButtonLabel = (path: string): string => {
+	const parts = path.split('/').filter((part) => part !== '')
+	const last = parts[parts.length - 1]
+
+	return last === undefined || last === '' ? path : last
+}
+
 /** True when a vault path should render as a thumbnail, not a text link. */
 export const isLanesImagePropertyPath = (path: string): boolean => {
 	const bare = path.trim().toLowerCase()
@@ -33,6 +41,7 @@ export const LanesCardPropertyField = Schema.Struct({
 	texts: Schema.Array(Schema.String),
 	monospace: Schema.Boolean,
 	badge: Schema.Boolean,
+	worktree: Schema.Boolean,
 	propertyId: Schema.String,
 })
 
@@ -356,6 +365,7 @@ export const lanesPropertyFieldFromTexts = (input: {
 	readonly asLinks: boolean
 	readonly monospace?: boolean
 	readonly badge?: boolean
+	readonly worktree?: boolean
 	readonly propertyId?: string
 }): LanesCardPropertyField | null => {
 	const links: LanesCardPropertyLink[] = []
@@ -382,6 +392,7 @@ export const lanesPropertyFieldFromTexts = (input: {
 		texts: leftovers,
 		monospace: input.monospace === true,
 		badge: input.badge === true,
+		worktree: input.worktree === true,
 		propertyId: input.propertyId ?? '',
 		links: relabelUrlPropertyLinks(links),
 	}

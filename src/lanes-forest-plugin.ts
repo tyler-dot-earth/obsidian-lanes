@@ -1,5 +1,7 @@
-import { Array, Option, Predicate, Schema } from 'effect'
-import type { App, TFile } from 'obsidian'
+import { Array, Option, Predicate, Result, Schema } from 'effect'
+import type { App, BasesPropertyId, TFile } from 'obsidian'
+
+import { lanesFrontmatterKey } from '#src/lanes-frontmatter-key'
 
 /** Structural copy object Forest.listCopiesForFile returns. */
 export const ForestWorktreeCopy = Schema.Struct({
@@ -40,11 +42,52 @@ export const forestCopyMatchingWorktreePath = (
 	return Option.getOrElse(matched, () => copies[0] ?? null)
 }
 
-/** Frontmatter worktree_path on a session note. */
-export const lanesNoteWorktreePath = (app: App, file: TFile): string | null => {
-	const value = app.metadataCache.getFileCache(file)?.frontmatter?.['worktree_path']
+/** Directory strings stored on a worktree field. */
+export const lanesWorktreePathsFromUnknown = (value: unknown): readonly string[] => {
+	const asString = Schema.decodeUnknownOption(Schema.String)(value)
 
-	return Predicate.isString(value) && value !== '' ? value : null
+	if (Option.isSome(asString) && asString.value.trim() !== '') {
+		return [asString.value.trim()]
+	}
+
+	const asList = Schema.decodeUnknownOption(Schema.Array(Schema.String))(value)
+
+	if (Option.isNone(asList)) {
+		return []
+	}
+
+	return Array.filterMap(asList.value, (path) => {
+		const trimmed = path.trim()
+
+		return trimmed === '' ? Result.failVoid : Result.succeed(trimmed)
+	})
+}
+
+/** Worktree directories from the card's Worktree fields on a note. */
+export const lanesWorktreePathsForFile = (
+	app: App,
+	file: TFile,
+	propertyIds: readonly BasesPropertyId[],
+): readonly string[] => {
+	const frontmatter = app.metadataCache.getFileCache(file)?.frontmatter
+
+	if (frontmatter === undefined) {
+		return []
+	}
+
+	const paths: string[] = []
+
+	for (const propertyId of propertyIds) {
+		const key = lanesFrontmatterKey(propertyId)
+
+		if (key === null || !Predicate.hasProperty(frontmatter, key)) {
+			continue
+		}
+
+		paths.push(...lanesWorktreePathsFromUnknown(frontmatter[key]))
+	}
+
+	return paths
 }
 
 export const decodeForestWorktreeCopies = (value: unknown): readonly ForestWorktreeCopy[] =>

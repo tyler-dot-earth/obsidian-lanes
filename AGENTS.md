@@ -2,7 +2,7 @@
 
 Obsidian plugin. Kanban view for Bases. Plugin id `lanes`. View type `lanes`, not `kanban`.
 
-`LanesView` groups cards by `lanesProperty`. Card title is `cardTitleProperty` (else file name). Cover is `coverProperty` or native `image`. In-lane sort is `cardSort`; manual order uses fractional indexes in `orderProperty` (default `lanes_order`). Those settings live on the board bar (Group by, Title, Cover, Card order, Link fields, Monospace, Badges, Fill width), not Configure. `fillWidth` stretches lanes across the pane. Monospace writes `cardMonospaceProperties`. Badges write `cardBadgeProperties`; right-click a chip for `badgeColors`. Column order is `boardColumns` (empty lanes stay). Collapsed lanes are `collapsedColumns`. Lane colors are `laneColors`, with hex fallback from `columnColors`. Visible card fields come from the Bases Properties toolbar (`order`). Link fields writes `cardLinkProperties`. Card click uses `cardOpenBehavior` (`current` / `tab` / `split` / `window`). Column plus creates a note with the lane group-by value. Plugin settings hold defaults when a view has not set group-by or title. Drops write group-by frontmatter and a new order key. Do not keep a reference to `this.data`.
+`LanesView` groups cards by `lanesProperty`. Card title is `cardTitleProperty` (else file name). Cover is `coverProperty` or native `image`. In-lane sort is `cardSort`; manual order uses fractional indexes in `orderProperty` (default `lanes_order`). Those settings live on the board bar (Group by, Title, Cover, Card order, Link fields, Monospace, Badges, Worktree fields, Fill width), not Configure. `fillWidth` stretches lanes across the pane. Monospace writes `cardMonospaceProperties`. Badges write `cardBadgeProperties`; right-click a chip for `badgeColors`. Worktree fields write `cardWorktreeProperties`; click opens the folder via Forest. Column order is `boardColumns` (empty lanes stay). Collapsed lanes are `collapsedColumns`. Lane colors are `laneColors`, with hex fallback from `columnColors`. Visible card fields come from the Bases Properties toolbar (`order`). Link fields writes `cardLinkProperties`. Card click uses `cardOpenBehavior` (`current` / `tab` / `split` / `window`). Column plus creates a note with the lane group-by value. Plugin settings hold defaults when a view has not set group-by or title. Drops write group-by frontmatter and a new order key. Do not keep a reference to `this.data`.
 
 ## Layout
 
@@ -23,7 +23,7 @@ Obsidian plugin. Kanban view for Bases. Plugin id `lanes`. View type `lanes`, no
 ## UI
 
 - Vanilla DOM. No React
-- Optional Forest plugin: card right-click can preview a worktree copy of the note or open `worktree_path`. Duck-typed via `getForestPluginApi`. Forest off means those items are absent.
+- Optional Forest plugin: Worktree fields and card right-click preview/open a worktree folder. Duck-typed via `getForestPluginApi`. Forest off means those items Notice or stay absent.
 - Board config belongs on the Bases view (`config.get` / `config.set` and `BasesViewRegistration.options`)
 - Global plugin settings stay empty until something is truly plugin-wide
 
