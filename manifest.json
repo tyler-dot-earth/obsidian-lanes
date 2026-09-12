@@ -1,0 +1,15 @@
+{
+	"id": "lanes",
+	"name": "Lanes",
+	"version": "0.1.0",
+	"minAppVersion": "1.10.0",
+	"description": "Kanban view for Obsidian Bases.",
+	"author": "tyler.earth",
+	"authorUrl": "https://tyler.earth/",
+	"isDesktopOnly": false,
+	"fundingUrl": {
+		"GitHub Sponsor": "https://github.com/sponsors/tyler-dot-earth",
+		"Ko-Fi": "https://ko-fi.com/tylerdotearth",
+		"Buy Me a Coffee": "https://buymeacoffee.com/tyler.earth"
+	}
+}
