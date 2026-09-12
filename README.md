@@ -1,7 +1,5 @@
 # Lanes 🎳 an Obsidian kanban plugin
 
-![Lanes logo](logo.svg)
-
 Bowling, swimlanes, you get it. For Bases.
 
 Board options live on the Bases view, not in a giant plugin settings dump.
