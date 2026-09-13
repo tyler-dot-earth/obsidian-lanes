@@ -1,6 +1,11 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { lanesPropertyIdsByDisplayName, notePropertyIdFromName } from '#src/lanes-view-options'
+import {
+	lanesLaneWidthFromStored,
+	lanesPropertyIdsByDisplayName,
+	nextLanesLaneWidth,
+	notePropertyIdFromName,
+} from '#src/lanes-view-options'
 
 describe('lanesPropertyIdsByDisplayName', () => {
 	it('sorts by display name, case-insensitive', () => {
@@ -18,5 +23,28 @@ describe('lanesPropertyIdsByDisplayName', () => {
 			notePropertyIdFromName('status'),
 			notePropertyIdFromName('Worktree'),
 		])
+	})
+})
+
+describe('nextLanesLaneWidth', () => {
+	it('cycles sm md lg fill', () => {
+		assert.strictEqual(nextLanesLaneWidth('sm'), 'md')
+		assert.strictEqual(nextLanesLaneWidth('md'), 'lg')
+		assert.strictEqual(nextLanesLaneWidth('lg'), 'fill')
+		assert.strictEqual(nextLanesLaneWidth('fill'), 'sm')
+	})
+})
+
+describe('lanesLaneWidthFromStored', () => {
+	it('prefers laneWidth', () => {
+		assert.strictEqual(lanesLaneWidthFromStored('lg', true), 'lg')
+	})
+
+	it('treats fillWidth true as fill', () => {
+		assert.strictEqual(lanesLaneWidthFromStored(undefined, true), 'fill')
+	})
+
+	it('defaults to md', () => {
+		assert.strictEqual(lanesLaneWidthFromStored(undefined, false), 'md')
 	})
 })

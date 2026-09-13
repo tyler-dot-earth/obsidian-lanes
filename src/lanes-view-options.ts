@@ -1,4 +1,4 @@
-import { Array, Option, Order, Result, Schema } from 'effect'
+import { Array, Match, Option, Order, Result, Schema } from 'effect'
 import type { BasesAllOptions, BasesPropertyId, BasesViewConfig } from 'obsidian'
 
 /** View config key for the property that groups cards into lanes. */
@@ -27,6 +27,14 @@ export const LANES_ORDER_PROPERTY_CONFIG_KEY = 'orderProperty'
 
 /** View config key for stretching lanes across the pane instead of a fixed width. */
 export const LANES_FILL_WIDTH_CONFIG_KEY = 'fillWidth'
+
+/** View config key for lane column width: sm, md, lg, or fill. */
+export const LANES_LANE_WIDTH_CONFIG_KEY = 'laneWidth'
+
+/** Lane column widths. */
+export const LanesLaneWidth = Schema.Literals(['sm', 'md', 'lg', 'fill'])
+
+export type LanesLaneWidth = typeof LanesLaneWidth.Type
 
 /** Default frontmatter key for fractional card order. */
 export const LANES_ORDER_PROPERTY_DEFAULT = 'lanes_order'
@@ -175,12 +183,52 @@ export const readLanesOrderProperty = (config: BasesViewConfig): string => {
 	return raw.trim()
 }
 
-/** True when lanes should grow to fill the pane with no horizontal scroll. */
-export const readLanesFillWidth = (config: BasesViewConfig): boolean =>
-	Option.getOrElse(
-		Schema.decodeUnknownOption(Schema.Boolean)(config.get(LANES_FILL_WIDTH_CONFIG_KEY)),
-		() => false,
+/** Next lane width in the board-bar cycle. */
+export const nextLanesLaneWidth = (current: LanesLaneWidth): LanesLaneWidth =>
+	Match.value(current).pipe(
+		Match.when('sm', () => 'md' as const),
+		Match.when('md', () => 'lg' as const),
+		Match.when('lg', () => 'fill' as const),
+		Match.when('fill', () => 'sm' as const),
+		Match.exhaustive,
 	)
+
+/** Lane width from laneWidth, with fillWidth: true as fill. Default md. */
+export const lanesLaneWidthFromStored = (
+	laneWidth: string | boolean | null | undefined,
+	fillWidth: boolean | null | undefined,
+): LanesLaneWidth => {
+	const named = Schema.decodeUnknownOption(LanesLaneWidth)(laneWidth)
+
+	if (Option.isSome(named)) {
+		return named.value
+	}
+
+	const fill = Schema.decodeUnknownOption(Schema.Boolean)(fillWidth)
+
+	if (Option.isSome(fill) && fill.value) {
+		return 'fill'
+	}
+
+	return 'md'
+}
+
+/** Lane column width for this view. */
+export const readLanesLaneWidth = (config: BasesViewConfig): LanesLaneWidth => {
+	const named = Schema.decodeUnknownOption(LanesLaneWidth)(config.get(LANES_LANE_WIDTH_CONFIG_KEY))
+
+	if (Option.isSome(named)) {
+		return named.value
+	}
+
+	const fill = Schema.decodeUnknownOption(Schema.Boolean)(config.get(LANES_FILL_WIDTH_CONFIG_KEY))
+
+	if (Option.isSome(fill) && fill.value) {
+		return 'fill'
+	}
+
+	return 'md'
+}
 
 /** Lanes board settings live on the board bar, not in Configure. */
 export const getLanesViewOptions = (_config: BasesViewConfig): BasesAllOptions[] => []

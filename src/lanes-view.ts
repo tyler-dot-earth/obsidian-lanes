@@ -90,7 +90,7 @@ import {
 	LANES_CARD_MONOSPACE_PROPERTIES_CONFIG_KEY,
 	LANES_CARD_WORKTREE_PROPERTIES_CONFIG_KEY,
 	LANES_COVER_PROPERTY_CONFIG_KEY,
-	LANES_FILL_WIDTH_CONFIG_KEY,
+	LANES_LANE_WIDTH_CONFIG_KEY,
 	LANES_ORDER_PROPERTY_CONFIG_KEY,
 	LANES_ORDER_PROPERTY_DEFAULT,
 	LANES_PROPERTY_CONFIG_KEY,
@@ -101,8 +101,9 @@ import {
 	readLanesCardWorktreePropertyIds,
 	lanesPropertyIdsByDisplayName,
 	readLanesCoverPropertyId,
-	readLanesFillWidth,
+	nextLanesLaneWidth,
 	readLanesGroupPropertyId,
+	readLanesLaneWidth,
 	readLanesOrderProperty,
 	readLanesTitlePropertyId,
 } from '#src/lanes-view-options'
@@ -383,7 +384,10 @@ export class LanesView extends BasesView {
 		}
 
 		const boardEl = this.viewEl.createDiv({
-			cls: readLanesFillWidth(this.config) ? 'lanes-board lanes-board-fill-width' : 'lanes-board',
+			cls: 'lanes-board',
+			attr: {
+				'data-lane-width': readLanesLaneWidth(this.config),
+			},
 		})
 
 		for (const column of columns) {
@@ -908,14 +912,12 @@ export class LanesView extends BasesView {
 			})
 		})
 
-		const fillWidth = readLanesFillWidth(this.config)
+		const laneWidth = readLanesLaneWidth(this.config)
 
-		const fillButton = this.addLanesBoardBarButton(barEl, 'Fill width', () => {
-			this.config.set(LANES_FILL_WIDTH_CONFIG_KEY, !fillWidth)
+		this.addLanesBoardBarButton(barEl, `Width: ${laneWidth}`, () => {
+			this.config.set(LANES_LANE_WIDTH_CONFIG_KEY, nextLanesLaneWidth(laneWidth))
 			this.renderLanesBoardDom()
 		})
-
-		fillButton.setAttribute('aria-pressed', fillWidth ? 'true' : 'false')
 	}
 
 	private addLanesBoardBarButton(
