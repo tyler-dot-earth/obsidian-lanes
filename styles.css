@@ -68,23 +68,23 @@
 }
 
 .lanes-board[data-lane-width='sm'] .lanes-column:not(.lanes-column-collapsed) {
-	flex-basis: 12rem;
-	min-width: 12rem;
+	flex: 0 0 20%;
+	min-width: 20%;
 }
 
 .lanes-board[data-lane-width='md'] .lanes-column:not(.lanes-column-collapsed) {
-	flex-basis: 16rem;
-	min-width: 16rem;
+	flex: 0 0 33%;
+	min-width: 33%;
 }
 
 .lanes-board[data-lane-width='lg'] .lanes-column:not(.lanes-column-collapsed) {
-	flex-basis: 22rem;
-	min-width: 22rem;
+	flex: 0 0 50%;
+	min-width: 50%;
 }
 
 .lanes-board[data-lane-width='xl'] .lanes-column:not(.lanes-column-collapsed) {
-	flex-basis: 28rem;
-	min-width: 28rem;
+	flex: 0 0 75%;
+	min-width: 75%;
 }
 
 .lanes-board[data-lane-width='fill'] {
