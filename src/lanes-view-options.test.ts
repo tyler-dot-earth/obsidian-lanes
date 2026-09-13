@@ -3,6 +3,7 @@ import { assert, describe, it } from '@effect/vitest'
 import {
 	lanesLaneWidthFromStored,
 	lanesPropertyIdsByDisplayName,
+	nextLanesLanePosition,
 	nextLanesLaneWidth,
 	notePropertyIdFromName,
 } from '#/src/lanes-view-options'
@@ -47,5 +48,12 @@ describe('lanesLaneWidthFromStored', () => {
 
 	it('defaults to md', () => {
 		assert.strictEqual(lanesLaneWidthFromStored(undefined, false), 'md')
+	})
+})
+
+describe('nextLanesLanePosition', () => {
+	it('cycles left and center', () => {
+		assert.strictEqual(nextLanesLanePosition('left'), 'center')
+		assert.strictEqual(nextLanesLanePosition('center'), 'left')
 	})
 })

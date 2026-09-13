@@ -90,6 +90,7 @@ import {
 	LANES_CARD_MONOSPACE_PROPERTIES_CONFIG_KEY,
 	LANES_CARD_WORKTREE_PROPERTIES_CONFIG_KEY,
 	LANES_COVER_PROPERTY_CONFIG_KEY,
+	LANES_LANE_POSITION_CONFIG_KEY,
 	LANES_LANE_WIDTH_CONFIG_KEY,
 	LANES_ORDER_PROPERTY_CONFIG_KEY,
 	LANES_ORDER_PROPERTY_DEFAULT,
@@ -101,8 +102,10 @@ import {
 	readLanesCardWorktreePropertyIds,
 	lanesPropertyIdsByDisplayName,
 	readLanesCoverPropertyId,
+	nextLanesLanePosition,
 	nextLanesLaneWidth,
 	readLanesGroupPropertyId,
+	readLanesLanePosition,
 	readLanesLaneWidth,
 	readLanesOrderProperty,
 	readLanesTitlePropertyId,
@@ -387,6 +390,7 @@ export class LanesView extends BasesView {
 			cls: 'lanes-board',
 			attr: {
 				'data-lane-width': readLanesLaneWidth(this.config),
+				'data-lane-position': readLanesLanePosition(this.config),
 			},
 		})
 
@@ -913,9 +917,14 @@ export class LanesView extends BasesView {
 		})
 
 		const laneWidth = readLanesLaneWidth(this.config)
+		const lanePosition = readLanesLanePosition(this.config)
 
 		this.addLanesBoardBarButton(barEl, `Width: ${laneWidth}`, () => {
 			this.config.set(LANES_LANE_WIDTH_CONFIG_KEY, nextLanesLaneWidth(laneWidth))
+			this.renderLanesBoardDom()
+		})
+		this.addLanesBoardBarButton(barEl, `Position: ${lanePosition}`, () => {
+			this.config.set(LANES_LANE_POSITION_CONFIG_KEY, nextLanesLanePosition(lanePosition))
 			this.renderLanesBoardDom()
 		})
 	}

@@ -36,6 +36,14 @@ export const LanesLaneWidth = Schema.Literals(['sm', 'md', 'lg', 'xl', 'fill'])
 
 export type LanesLaneWidth = typeof LanesLaneWidth.Type
 
+/** View config key for whether columns sit left or center. */
+export const LANES_LANE_POSITION_CONFIG_KEY = 'lanePosition'
+
+/** Column alignment on the board. */
+export const LanesLanePosition = Schema.Literals(['left', 'center'])
+
+export type LanesLanePosition = typeof LanesLanePosition.Type
+
 /** Default frontmatter key for fractional card order. */
 export const LANES_ORDER_PROPERTY_DEFAULT = 'lanes_order'
 
@@ -230,6 +238,21 @@ export const readLanesLaneWidth = (config: BasesViewConfig): LanesLaneWidth => {
 
 	return 'md'
 }
+
+/** Next column position in the board-bar cycle. */
+export const nextLanesLanePosition = (current: LanesLanePosition): LanesLanePosition =>
+	Match.value(current).pipe(
+		Match.when('left', () => 'center' as const),
+		Match.when('center', () => 'left' as const),
+		Match.exhaustive,
+	)
+
+/** Column alignment for this view. Default left. */
+export const readLanesLanePosition = (config: BasesViewConfig): LanesLanePosition =>
+	Option.getOrElse(
+		Schema.decodeUnknownOption(LanesLanePosition)(config.get(LANES_LANE_POSITION_CONFIG_KEY)),
+		() => 'left',
+	)
 
 /** Lanes board settings live on the board bar, not in Configure. */
 export const getLanesViewOptions = (_config: BasesViewConfig): BasesAllOptions[] => []

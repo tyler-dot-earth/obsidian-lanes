@@ -52,6 +52,10 @@
 	padding: var(--size-4-3);
 }
 
+.lanes-board[data-lane-position='center'] {
+	justify-content: center;
+}
+
 .lanes-column {
 	display: flex;
 	flex: 0 0 16rem;
