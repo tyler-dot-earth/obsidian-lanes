@@ -74,6 +74,7 @@ import {
 	lanesWorktreePathsForFile,
 } from '#/src/lanes-forest-plugin'
 import { lanesFrontmatterKey } from '#/src/lanes-frontmatter-key'
+import { type LanesGalleryImage, LanesImageGallery } from '#/src/lanes-image-gallery'
 import {
 	LANES_LANE_COLOR_NAMES,
 	LANES_LANE_COLORS_CONFIG_KEY,
@@ -187,6 +188,7 @@ type LanesCardPropertyHandlers = {
 	readonly onBadgeContextMenu: (propertyId: string, value: string, event: MouseEvent) => void
 	readonly onWorktreeFolder: (worktreePath: string) => void
 	readonly onWorktreeFile: (worktreePath: string, vaultRelativePath: string) => void
+	readonly onOpenGallery: (images: readonly LanesGalleryImage[], startIndex: number) => void
 }
 
 const renderLanesCard = (
@@ -204,10 +206,12 @@ const renderLanesCard = (
 	})
 
 	if (display.coverSrc !== null) {
+		const coverSrc = display.coverSrc
+
 		const imageEl = cardEl.createEl('img', {
 			cls: 'lanes-card-cover',
 			attr: {
-				src: display.coverSrc,
+				src: coverSrc,
 				alt: display.title,
 				draggable: 'false',
 			},
@@ -215,6 +219,11 @@ const renderLanesCard = (
 
 		imageEl.addEventListener('error', () => {
 			imageEl.remove()
+		})
+
+		imageEl.addEventListener('click', (event: MouseEvent) => {
+			event.stopPropagation()
+			handlers.onOpenGallery([{ src: coverSrc, label: display.title }], 0)
 		})
 	}
 
@@ -237,6 +246,7 @@ export class LanesView extends BasesView {
 	private ignoreNextCardClick = false
 	private draggingFilePath: string | null = null
 	private draggingLaneTitle: string | null = null
+	private readonly imageGallery = new LanesImageGallery()
 
 	constructor(
 		controller: QueryController,
@@ -569,6 +579,9 @@ export class LanesView extends BasesView {
 				},
 				onWorktreeFile: (worktreePath: string, vaultRelativePath: string): void => {
 					void this.previewLanesCardForestCopyAtPath(worktreePath, vaultRelativePath)
+				},
+				onOpenGallery: (images: readonly LanesGalleryImage[], startIndex: number): void => {
+					this.imageGallery.open(images, startIndex)
 				},
 			})
 		}
@@ -1399,7 +1412,9 @@ export class LanesView extends BasesView {
 
 		if (
 			event.target instanceof Element &&
-			event.target.closest('a, .lanes-card-property-worktree') !== null
+			event.target.closest(
+				'a, .lanes-card-property-worktree, .lanes-card-cover, .lanes-card-property-image',
+			) !== null
 		) {
 			return
 		}
@@ -1499,9 +1514,25 @@ const renderLanesCardProperty = (
 	})
 
 	const valuesEl = rowEl.createDiv({ cls: 'lanes-card-property-values' })
+	const galleryImages = lanesGalleryImagesFromField(field, handlers)
+	let galleryIndex = 0
 
 	for (const link of field.links) {
-		renderLanesCardPropertyLink(valuesEl, link, handlers)
+		if (link.kind === 'image') {
+			if (handlers.imageSrc(link.href) === null) {
+				continue
+			}
+
+			const imageIndex = galleryIndex
+
+			galleryIndex += 1
+			renderLanesCardPropertyImage(valuesEl, link, handlers, {
+				images: galleryImages,
+				index: imageIndex,
+			})
+		} else {
+			renderLanesCardPropertyLink(valuesEl, link, handlers)
+		}
 	}
 
 	for (const text of field.texts) {
@@ -1579,39 +1610,63 @@ const renderLanesCardPropertyBadge = (
 	})
 }
 
+const lanesGalleryImagesFromField = (
+	field: LanesCardPropertyField,
+	handlers: LanesCardPropertyHandlers,
+): readonly LanesGalleryImage[] => {
+	const images: LanesGalleryImage[] = []
+
+	for (const link of field.links) {
+		if (link.kind !== 'image') {
+			continue
+		}
+
+		const src = handlers.imageSrc(link.href)
+
+		if (src !== null) {
+			images.push({ src, label: link.label })
+		}
+	}
+
+	return images
+}
+
+const renderLanesCardPropertyImage = (
+	valuesEl: HTMLElement,
+	link: LanesCardPropertyLink,
+	handlers: LanesCardPropertyHandlers,
+	gallery: { readonly images: readonly LanesGalleryImage[]; readonly index: number },
+): void => {
+	const src = handlers.imageSrc(link.href)
+
+	if (src === null) {
+		return
+	}
+
+	const imageEl = valuesEl.createEl('img', {
+		cls: 'lanes-card-property-image',
+		attr: {
+			src,
+			alt: link.label,
+			title: link.href,
+			draggable: 'false',
+		},
+	})
+
+	imageEl.addEventListener('error', () => {
+		imageEl.remove()
+	})
+	imageEl.addEventListener('click', (event: MouseEvent) => {
+		event.stopPropagation()
+		handlers.onOpenGallery(gallery.images, gallery.index)
+	})
+}
+
 const renderLanesCardPropertyLink = (
 	valuesEl: HTMLElement,
 	link: LanesCardPropertyLink,
 	handlers: LanesCardPropertyHandlers,
 ): void => {
-	if (link.kind === 'image') {
-		const src = handlers.imageSrc(link.href)
-
-		if (src === null) {
-			return
-		}
-
-		const imageEl = valuesEl.createEl('img', {
-			cls: 'lanes-card-property-image',
-			attr: {
-				src,
-				alt: link.label,
-				title: link.href,
-				draggable: 'false',
-			},
-		})
-
-		imageEl.addEventListener('error', () => {
-			imageEl.remove()
-		})
-		imageEl.addEventListener('click', (event: MouseEvent) => {
-			event.stopPropagation()
-			handlers.openWiki(link.href)
-		})
-
-		return
-	}
-
 	const isUrl = link.kind === 'url'
 
 	const anchorEl = valuesEl.createEl('a', {
