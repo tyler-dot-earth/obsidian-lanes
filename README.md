@@ -52,4 +52,5 @@ Add `"lanes"` to `Vault/.obsidian/community-plugins.json`. Reload Obsidian.
 pnpm check
 pnpm dev
 pnpm build
+pnpm release -- patch
 ```
