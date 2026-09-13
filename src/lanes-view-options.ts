@@ -32,7 +32,7 @@ export const LANES_FILL_WIDTH_CONFIG_KEY = 'fillWidth'
 export const LANES_LANE_WIDTH_CONFIG_KEY = 'laneWidth'
 
 /** Lane column widths. */
-export const LanesLaneWidth = Schema.Literals(['sm', 'md', 'lg', 'fill'])
+export const LanesLaneWidth = Schema.Literals(['sm', 'md', 'lg', 'xl', 'fill'])
 
 export type LanesLaneWidth = typeof LanesLaneWidth.Type
 
@@ -188,7 +188,8 @@ export const nextLanesLaneWidth = (current: LanesLaneWidth): LanesLaneWidth =>
 	Match.value(current).pipe(
 		Match.when('sm', () => 'md' as const),
 		Match.when('md', () => 'lg' as const),
-		Match.when('lg', () => 'fill' as const),
+		Match.when('lg', () => 'xl' as const),
+		Match.when('xl', () => 'fill' as const),
 		Match.when('fill', () => 'sm' as const),
 		Match.exhaustive,
 	)

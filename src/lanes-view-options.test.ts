@@ -27,10 +27,11 @@ describe('lanesPropertyIdsByDisplayName', () => {
 })
 
 describe('nextLanesLaneWidth', () => {
-	it('cycles sm md lg fill', () => {
+	it('cycles sm md lg xl fill', () => {
 		assert.strictEqual(nextLanesLaneWidth('sm'), 'md')
 		assert.strictEqual(nextLanesLaneWidth('md'), 'lg')
-		assert.strictEqual(nextLanesLaneWidth('lg'), 'fill')
+		assert.strictEqual(nextLanesLaneWidth('lg'), 'xl')
+		assert.strictEqual(nextLanesLaneWidth('xl'), 'fill')
 		assert.strictEqual(nextLanesLaneWidth('fill'), 'sm')
 	})
 })

@@ -78,6 +78,11 @@
 	min-width: 22rem;
 }
 
+.lanes-board[data-lane-width='xl'] .lanes-column:not(.lanes-column-collapsed) {
+	flex-basis: 28rem;
+	min-width: 28rem;
+}
+
 .lanes-board[data-lane-width='fill'] {
 	overflow-x: hidden;
 }
