@@ -1136,9 +1136,9 @@ export class LanesView extends BasesView {
 		columnEl: HTMLElement,
 		sourceLaneTitle: string | null,
 	): LanesCardDropWrite | null {
-		const file = this.app.vault.getAbstractFileByPath(filePath)
+		const file = this.app.vault.getFileByPath(filePath)
 
-		if (!(file instanceof TFile)) {
+		if (file === null) {
 			return null
 		}
 
@@ -1355,9 +1355,7 @@ export class LanesView extends BasesView {
 			return null
 		}
 
-		const file = this.app.vault.getAbstractFileByPath(filePath)
-
-		return file instanceof TFile ? file : null
+		return this.app.vault.getFileByPath(filePath)
 	}
 
 	private lanesCardWorktreeDirectory(file: TFile): string | null {
@@ -1437,9 +1435,9 @@ export class LanesView extends BasesView {
 			return
 		}
 
-		const file = this.app.vault.getAbstractFileByPath(filePath)
+		const file = this.app.vault.getFileByPath(filePath)
 
-		if (file instanceof TFile) {
+		if (file !== null) {
 			this.openLanesCardFile(file)
 		}
 	}
@@ -1465,9 +1463,9 @@ const lanesOrderKeysByPath = (
 	const keysByPath = new Map<string, string | null>()
 
 	for (const path of paths) {
-		const neighbor = app.vault.getAbstractFileByPath(path)
+		const neighbor = app.vault.getFileByPath(path)
 
-		if (neighbor instanceof TFile) {
+		if (neighbor !== null) {
 			const orderValue = readOrderValueForFile(app, neighbor, orderProperty)
 			keysByPath.set(path, Predicate.isString(orderValue) ? orderValue : null)
 		}
