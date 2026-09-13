@@ -66,6 +66,7 @@ import {
 } from '#src/lanes-errors'
 import {
 	decodeForestWorktreeCopies,
+	forestCopyForWorktreePath,
 	forestCopyMatchingWorktreePath,
 	forestWorktreeDirectoryToOpen,
 	type ForestPluginApi,
@@ -180,7 +181,8 @@ type LanesCardPropertyHandlers = {
 	readonly imageSrc: (href: string) => string | null
 	readonly badgeColor: (propertyId: string, value: string) => string | null
 	readonly onBadgeContextMenu: (propertyId: string, value: string, event: MouseEvent) => void
-	readonly onWorktreePath: (path: string) => void
+	readonly onWorktreeFolder: (worktreePath: string) => void
+	readonly onWorktreeFile: (worktreePath: string, vaultRelativePath: string) => void
 }
 
 const renderLanesCard = (
@@ -218,7 +220,7 @@ const renderLanesCard = (
 	})
 
 	for (const field of display.properties) {
-		renderLanesCardProperty(cardEl, field, handlers)
+		renderLanesCardProperty(cardEl, field, entry.file.path, handlers)
 	}
 }
 
@@ -554,8 +556,11 @@ export class LanesView extends BasesView {
 						this.setLanesBadgeColor(propertyId, value, color)
 					})
 				},
-				onWorktreePath: (path: string): void => {
-					this.openLanesWorktreeDirectory(path)
+				onWorktreeFolder: (worktreePath: string): void => {
+					this.openLanesWorktreeDirectory(worktreePath)
+				},
+				onWorktreeFile: (worktreePath: string, vaultRelativePath: string): void => {
+					void this.previewLanesCardForestCopyAtPath(worktreePath, vaultRelativePath)
 				},
 			})
 		}
@@ -1350,6 +1355,30 @@ export class LanesView extends BasesView {
 		forest.openWorktreeDirectory(path)
 	}
 
+	private async previewLanesCardForestCopyAtPath(
+		worktreePath: string,
+		vaultRelativePath: string,
+	): Promise<void> {
+		const forest = getForestPluginApi(this.app)
+
+		if (forest === null) {
+			new Notice('Forest: enable Forest to preview worktree files.')
+
+			return
+		}
+
+		const copies = decodeForestWorktreeCopies(await forest.listCopiesForFile(vaultRelativePath))
+		const copy = forestCopyForWorktreePath(copies, worktreePath)
+
+		if (copy === null) {
+			new Notice('Forest: no copy of this note in that worktree.')
+
+			return
+		}
+
+		forest.previewWorktreeCopy(copy)
+	}
+
 	private handleLanesCardClick(event: MouseEvent): void {
 		if (this.ignoreNextCardClick) {
 			this.ignoreNextCardClick = false
@@ -1446,6 +1475,7 @@ const lanesValueTexts = (value: ReturnType<BasesEntry['getValue']>): readonly st
 const renderLanesCardProperty = (
 	cardEl: HTMLElement,
 	field: LanesCardPropertyField,
+	vaultRelativePath: string,
 	handlers: LanesCardPropertyHandlers,
 ): void => {
 	const rowEl = cardEl.createDiv({
@@ -1465,7 +1495,7 @@ const renderLanesCardProperty = (
 
 	for (const text of field.texts) {
 		if (field.worktree) {
-			renderLanesCardPropertyWorktree(valuesEl, text, handlers)
+			renderLanesCardPropertyWorktree(valuesEl, text, vaultRelativePath, handlers)
 		} else if (field.badge) {
 			renderLanesCardPropertyBadge(valuesEl, field.propertyId, text, handlers)
 		} else {
@@ -1480,21 +1510,37 @@ const renderLanesCardProperty = (
 const renderLanesCardPropertyWorktree = (
 	valuesEl: HTMLElement,
 	path: string,
+	vaultRelativePath: string,
 	handlers: LanesCardPropertyHandlers,
 ): void => {
-	const buttonEl = valuesEl.createEl('button', {
+	const folderButtonEl = valuesEl.createEl('button', {
 		cls: 'lanes-card-property-button lanes-card-property-worktree',
 		text: lanesWorktreeButtonLabel(path),
 		attr: {
-			title: path,
+			title: `Open folder: ${path}`,
 			type: 'button',
 		},
 	})
 
-	buttonEl.addEventListener('click', (event: MouseEvent) => {
+	folderButtonEl.addEventListener('click', (event: MouseEvent) => {
 		event.preventDefault()
 		event.stopPropagation()
-		handlers.onWorktreePath(path)
+		handlers.onWorktreeFolder(path)
+	})
+
+	const fileButtonEl = valuesEl.createEl('button', {
+		cls: 'lanes-card-property-button lanes-card-property-worktree',
+		text: 'File',
+		attr: {
+			title: 'Preview this note in the worktree',
+			type: 'button',
+		},
+	})
+
+	fileButtonEl.addEventListener('click', (event: MouseEvent) => {
+		event.preventDefault()
+		event.stopPropagation()
+		handlers.onWorktreeFile(path, vaultRelativePath)
 	})
 }
 

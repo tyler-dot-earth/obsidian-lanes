@@ -42,6 +42,18 @@ export const forestCopyMatchingWorktreePath = (
 	return Option.getOrElse(matched, () => copies[0] ?? null)
 }
 
+/** The copy in that worktree, or null if this note is not there. */
+export const forestCopyForWorktreePath = (
+	copies: readonly ForestWorktreeCopy[],
+	worktreePath: string,
+): ForestWorktreeCopy | null => {
+	const normalized = worktreePath.replace(/\/$/, '')
+
+	return Option.getOrNull(
+		Array.findFirst(copies, (copy) => copy.worktreePath.replace(/\/$/, '') === normalized),
+	)
+}
+
 /** Directory strings stored on a worktree field. */
 export const lanesWorktreePathsFromUnknown = (value: unknown): readonly string[] => {
 	const asString = Schema.decodeUnknownOption(Schema.String)(value)

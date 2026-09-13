@@ -2,6 +2,7 @@ import { assert, describe, it } from '@effect/vitest'
 
 import {
 	decodeForestWorktreeCopies,
+	forestCopyForWorktreePath,
 	forestCopyMatchingWorktreePath,
 	forestWorktreeDirectoryToOpen,
 	lanesWorktreePathsFromUnknown,
@@ -41,6 +42,16 @@ describe('forestCopyMatchingWorktreePath', () => {
 
 	it('returns null when there are no copies', () => {
 		assert.strictEqual(forestCopyMatchingWorktreePath([], '/wt'), null)
+	})
+})
+
+describe('forestCopyForWorktreePath', () => {
+	it('returns only an exact worktree match', () => {
+		assert.strictEqual(
+			forestCopyForWorktreePath([otherCopy, featureCopy], '/tmp/worktree/feature')?.branch,
+			'feature',
+		)
+		assert.strictEqual(forestCopyForWorktreePath([otherCopy], '/tmp/worktree/feature'), null)
 	})
 })
 
