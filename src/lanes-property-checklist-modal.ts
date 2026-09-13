@@ -1,5 +1,7 @@
 import { type App, type BasesPropertyId, Modal, Setting } from 'obsidian'
 
+import { lanesPropertyIdsByDisplayName } from '#src/lanes-view-options'
+
 /** Checklist of card properties for a board-bar option such as Link fields. */
 export class LanesPropertyChecklistModal extends Modal {
 	private readonly title: string
@@ -21,7 +23,11 @@ export class LanesPropertyChecklistModal extends Modal {
 		super(input.app)
 		this.title = input.title
 		this.description = input.description
-		this.propertyIds = lanesPropertyChecklistChoices(input.propertyIds, input.selectedIds)
+		this.propertyIds = lanesPropertyChecklistChoices(
+			input.propertyIds,
+			input.selectedIds,
+			input.displayName,
+		)
 		this.displayName = input.displayName
 		this.onSave = input.onSave
 		this.checked = new Set(input.selectedIds)
@@ -72,6 +78,7 @@ export class LanesPropertyChecklistModal extends Modal {
 const lanesPropertyChecklistChoices = (
 	propertyIds: readonly BasesPropertyId[],
 	selectedIds: readonly BasesPropertyId[],
+	displayName: (propertyId: BasesPropertyId) => string,
 ): readonly BasesPropertyId[] => {
 	const ids = [...propertyIds]
 
@@ -81,5 +88,5 @@ const lanesPropertyChecklistChoices = (
 		}
 	}
 
-	return ids
+	return lanesPropertyIdsByDisplayName(ids, displayName)
 }

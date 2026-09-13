@@ -98,6 +98,7 @@ import {
 	readLanesCardLinkPropertyIds,
 	readLanesCardMonospacePropertyIds,
 	readLanesCardWorktreePropertyIds,
+	lanesPropertyIdsByDisplayName,
 	readLanesCoverPropertyId,
 	readLanesFillWidth,
 	readLanesGroupPropertyId,
@@ -945,7 +946,11 @@ export class LanesView extends BasesView {
 			propertyIds.push(input.currentId)
 		}
 
-		for (const propertyId of propertyIds) {
+		const sortedIds = lanesPropertyIdsByDisplayName(propertyIds, (propertyId) =>
+			this.config.getDisplayName(propertyId),
+		)
+
+		for (const propertyId of sortedIds) {
 			const id = propertyId
 
 			menu.addItem((item) => {

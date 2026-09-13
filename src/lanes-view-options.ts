@@ -1,4 +1,4 @@
-import { Array, Option, Result, Schema } from 'effect'
+import { Array, Option, Order, Result, Schema } from 'effect'
 import type { BasesAllOptions, BasesPropertyId, BasesViewConfig } from 'obsidian'
 
 /** View config key for the property that groups cards into lanes. */
@@ -30,6 +30,17 @@ export const LANES_FILL_WIDTH_CONFIG_KEY = 'fillWidth'
 
 /** Default frontmatter key for fractional card order. */
 export const LANES_ORDER_PROPERTY_DEFAULT = 'lanes_order'
+
+/** Property ids sorted by their display names, case-insensitive. */
+export const lanesPropertyIdsByDisplayName = (
+	propertyIds: readonly BasesPropertyId[],
+	displayName: (propertyId: BasesPropertyId) => string,
+): readonly BasesPropertyId[] =>
+	Array.sortWith(
+		propertyIds,
+		(propertyId) => displayName(propertyId).toLocaleLowerCase(),
+		Order.String,
+	)
 
 /** Builds a BasesPropertyId from a bare or prefixed property name. */
 export const notePropertyIdFromName = (name: string): BasesPropertyId => {
