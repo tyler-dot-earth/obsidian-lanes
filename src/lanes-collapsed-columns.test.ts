@@ -3,7 +3,7 @@ import { assert, describe, it } from '@effect/vitest'
 import {
 	lanesCollapsedColumnsConfigValue,
 	lanesCollapsedTitlesFromFlags,
-} from '#src/lanes-collapsed-columns'
+} from '#/src/lanes-collapsed-columns'
 
 describe('lanesCollapsedTitlesFromFlags', () => {
 	it('keeps titles whose flag is true', () => {

@@ -1,6 +1,6 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { mergeLanesColumnOrder } from '#src/lanes-column-order'
+import { mergeLanesColumnOrder } from '#/src/lanes-column-order'
 
 describe('mergeLanesColumnOrder', () => {
 	it('keeps configured order and appends new live titles', () => {

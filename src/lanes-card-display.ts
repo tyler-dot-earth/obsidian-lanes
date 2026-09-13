@@ -1,6 +1,6 @@
 import { Schema } from 'effect'
 
-import { LanesCardPropertyField } from '#src/lanes-card-property'
+import { LanesCardPropertyField } from '#/src/lanes-card-property'
 
 /** Inputs for choosing a card title from a property or the file name. */
 export const LanesCardTitleInput = Schema.Struct({

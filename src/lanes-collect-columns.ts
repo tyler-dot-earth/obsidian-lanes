@@ -1,7 +1,7 @@
 import { Array, Order } from 'effect'
 
-import { mergeLanesColumnOrder } from '#src/lanes-column-order'
-import { LANES_NO_VALUE_COLUMN } from '#src/lanes-column-title'
+import { mergeLanesColumnOrder } from '#/src/lanes-column-order'
+import { LANES_NO_VALUE_COLUMN } from '#/src/lanes-column-title'
 
 /** One grouped row before it is collected into a lane. */
 export type LanesColumnRow<T> = {

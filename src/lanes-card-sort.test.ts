@@ -1,6 +1,6 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { compareLanesCardSort, type LanesCardSortKey } from '#src/lanes-card-sort'
+import { compareLanesCardSort, type LanesCardSortKey } from '#/src/lanes-card-sort'
 
 const key = (
 	input: Partial<LanesCardSortKey> & Pick<LanesCardSortKey, 'basename'>,

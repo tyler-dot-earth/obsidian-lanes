@@ -1,7 +1,7 @@
 import { Array, Option, Schema } from 'effect'
 import type { BasesViewConfig } from 'obsidian'
 
-import { isLanesLaneColorName, type LanesLaneColorName } from '#src/lanes-lane-colors'
+import { isLanesLaneColorName, type LanesLaneColorName } from '#/src/lanes-lane-colors'
 
 /** View config key for per-value badge colors, nested as property id → value → color name. */
 export const LANES_BADGE_COLORS_CONFIG_KEY = 'badgeColors'

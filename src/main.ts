@@ -11,10 +11,10 @@ import {
 	defaultLanesPluginSettings,
 	type LanesPluginSettings,
 	loadLanesPluginSettings,
-} from '#src/lanes-plugin-settings'
-import { LanesSettingTab } from '#src/lanes-setting-tab'
-import { LANES_VIEW_TYPE, LanesView } from '#src/lanes-view'
-import { getLanesViewOptions } from '#src/lanes-view-options'
+} from '#/src/lanes-plugin-settings'
+import { LanesSettingTab } from '#/src/lanes-setting-tab'
+import { LANES_VIEW_TYPE, LanesView } from '#/src/lanes-view'
+import { getLanesViewOptions } from '#/src/lanes-view-options'
 
 export default class LanesPlugin extends Plugin {
 	override settings: LanesPluginSettings = defaultLanesPluginSettings

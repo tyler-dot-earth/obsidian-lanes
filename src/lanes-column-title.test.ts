@@ -1,6 +1,6 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { LANES_NO_VALUE_COLUMN, lanesColumnTitle } from '#src/lanes-column-title'
+import { LANES_NO_VALUE_COLUMN, lanesColumnTitle } from '#/src/lanes-column-title'
 
 describe('lanesColumnTitle', () => {
 	it('uses the groupBy key text', () => {

@@ -1,6 +1,6 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { lanesCardTitleText, parseLanesCoverHref } from '#src/lanes-card-display'
+import { lanesCardTitleText, parseLanesCoverHref } from '#/src/lanes-card-display'
 
 describe('lanesCardTitleText', () => {
 	it('uses property text when it is non-empty', () => {

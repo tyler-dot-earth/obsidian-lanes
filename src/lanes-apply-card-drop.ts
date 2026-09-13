@@ -1,7 +1,7 @@
 import { Effect } from 'effect'
 import type { App, TFile } from 'obsidian'
 
-import { LanesApplyCardDropError, lanesErrorMessage } from '#src/lanes-errors'
+import { LanesApplyCardDropError, lanesErrorMessage } from '#/src/lanes-errors'
 
 /** Frontmatter updates to apply after a card drop. */
 export interface LanesCardDropWrite {

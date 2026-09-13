@@ -6,7 +6,7 @@ import {
 	lanesUrlButtonLabels,
 	lanesWorktreeButtonLabel,
 	parseLanesPropertyLink,
-} from '#src/lanes-card-property'
+} from '#/src/lanes-card-property'
 
 describe('lanesWorktreeButtonLabel', () => {
 	it('uses the last path segment', () => {

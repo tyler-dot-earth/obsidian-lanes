@@ -1,7 +1,7 @@
 import { assert, describe, it } from '@effect/vitest'
 import { Option, Schema } from 'effect'
 
-import { LanesCardOpenBehavior } from '#src/lanes-card-open'
+import { LanesCardOpenBehavior } from '#/src/lanes-card-open'
 
 describe('LanesCardOpenBehavior', () => {
 	it('accepts split', () => {

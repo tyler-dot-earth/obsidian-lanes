@@ -1,7 +1,7 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { collectLanesColumns } from '#src/lanes-collect-columns'
-import { LANES_NO_VALUE_COLUMN } from '#src/lanes-column-title'
+import { collectLanesColumns } from '#/src/lanes-collect-columns'
+import { LANES_NO_VALUE_COLUMN } from '#/src/lanes-column-title'
 
 describe('collectLanesColumns', () => {
 	it('groups items by lane title and sorts titles alphabetically', () => {

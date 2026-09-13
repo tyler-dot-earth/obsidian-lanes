@@ -3,7 +3,7 @@ import { type App, Plugin, PluginSettingTab, Setting } from 'obsidian'
 import {
 	lanesPluginSettingsFromDefaults,
 	type LanesPluginSettingsHost,
-} from '#src/lanes-plugin-settings'
+} from '#/src/lanes-plugin-settings'
 
 /** Plugin settings tab for defaults used when a view has not set its own. */
 export class LanesSettingTab extends PluginSettingTab {

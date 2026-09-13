@@ -1,7 +1,7 @@
 import { Match, Option, Schema } from 'effect'
 import type { BasesViewConfig } from 'obsidian'
 
-import { compareLanesOrderValues, LanesOrderValue } from '#src/lanes-order-key'
+import { compareLanesOrderValues, LanesOrderValue } from '#/src/lanes-order-key'
 
 /** View config key for how cards are sorted inside a lane. */
 export const LANES_CARD_SORT_CONFIG_KEY = 'cardSort'

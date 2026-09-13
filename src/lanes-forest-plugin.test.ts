@@ -6,7 +6,7 @@ import {
 	forestCopyMatchingWorktreePath,
 	forestWorktreeDirectoryToOpen,
 	lanesWorktreePathsFromUnknown,
-} from '#src/lanes-forest-plugin'
+} from '#/src/lanes-forest-plugin'
 
 const featureCopy = {
 	worktreePath: '/tmp/worktree/feature',

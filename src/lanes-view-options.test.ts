@@ -5,7 +5,7 @@ import {
 	lanesPropertyIdsByDisplayName,
 	nextLanesLaneWidth,
 	notePropertyIdFromName,
-} from '#src/lanes-view-options'
+} from '#/src/lanes-view-options'
 
 describe('lanesPropertyIdsByDisplayName', () => {
 	it('sorts by display name, case-insensitive', () => {

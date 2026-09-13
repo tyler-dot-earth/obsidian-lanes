@@ -1,6 +1,6 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { lanesLegacyColumnColorFromEntries } from '#src/lanes-lane-colors'
+import { lanesLegacyColumnColorFromEntries } from '#/src/lanes-lane-colors'
 
 describe('lanesLegacyColumnColorFromEntries', () => {
 	it('reads a hex string for a lane title', () => {

@@ -7,7 +7,7 @@ Obsidian plugin. Kanban view for Bases. Plugin id `lanes`. View type `lanes`, no
 ## Layout
 
 - `src/main.ts` is the Plugin host: onload/onunload, settings tab registration
-- Package imports: `#src/lanes-plugin-settings`
+- Package imports: `#/src/lanes-plugin-settings`
 - Effect programs live in named modules, not in the Plugin class
 - `effect-obsidian` is a sibling repo (`../effect-obsidian`), consumed via `file:`
 - Release artifacts at repo root: `main.js`, `manifest.json`, `styles.css`

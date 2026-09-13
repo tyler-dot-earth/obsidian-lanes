@@ -1,6 +1,6 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { lanesBadgeColorForWord, lanesBadgeColorsWithValue } from '#src/lanes-badge-colors'
+import { lanesBadgeColorForWord, lanesBadgeColorsWithValue } from '#/src/lanes-badge-colors'
 
 describe('lanesBadgeColorForWord', () => {
 	it('maps high to red', () => {

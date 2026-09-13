@@ -1,6 +1,6 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { compareLanesOrderValues, generateLanesOrderKey } from '#src/lanes-order-key'
+import { compareLanesOrderValues, generateLanesOrderKey } from '#/src/lanes-order-key'
 
 describe('generateLanesOrderKey', () => {
 	it('creates keys that sort between neighbors', () => {

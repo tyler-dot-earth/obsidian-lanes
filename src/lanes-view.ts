@@ -19,51 +19,51 @@ import {
 	TFile,
 } from 'obsidian'
 
-import { applyLanesCardDrop, type LanesCardDropWrite } from '#src/lanes-apply-card-drop'
+import { applyLanesCardDrop, type LanesCardDropWrite } from '#/src/lanes-apply-card-drop'
 import {
 	LANES_BADGE_COLORS_CONFIG_KEY,
 	lanesBadgeColorsWithValue,
 	readLanesBadgeColor,
-} from '#src/lanes-badge-colors'
-import { LanesCardDisplay, lanesCardTitleText, parseLanesCoverHref } from '#src/lanes-card-display'
+} from '#/src/lanes-badge-colors'
+import { LanesCardDisplay, lanesCardTitleText, parseLanesCoverHref } from '#/src/lanes-card-display'
 import {
 	insertDraggedPathAt,
 	lanesGroupWriteValue,
 	lanesOrderKeyAfterDrop,
 	neighborOrderKeys,
-} from '#src/lanes-card-drop'
-import { readLanesCardOpenBehavior } from '#src/lanes-card-open'
+} from '#/src/lanes-card-drop'
+import { readLanesCardOpenBehavior } from '#/src/lanes-card-open'
 import {
 	type LanesCardPropertyField,
 	type LanesCardPropertyLink,
 	lanesPropertyFieldFromTexts,
 	lanesWorktreeButtonLabel,
-} from '#src/lanes-card-property'
+} from '#/src/lanes-card-property'
 import {
 	compareLanesCardSort,
 	LANES_CARD_SORT_CONFIG_KEY,
 	LANES_CARD_SORT_OPTIONS,
 	type LanesCardSortKey,
 	readLanesCardSort,
-} from '#src/lanes-card-sort'
+} from '#/src/lanes-card-sort'
 import {
 	LANES_COLLAPSED_COLUMNS_CONFIG_KEY,
 	lanesCollapsedColumnsConfigValue,
 	readLanesCollapsedColumns,
-} from '#src/lanes-collapsed-columns'
+} from '#/src/lanes-collapsed-columns'
 import {
 	collectLanesColumns,
 	type LanesColumn,
 	type LanesColumnRow,
-} from '#src/lanes-collect-columns'
-import { LANES_BOARD_COLUMNS_CONFIG_KEY, readLanesBoardColumns } from '#src/lanes-column-order'
-import { LANES_NO_VALUE_COLUMN, lanesColumnTitle } from '#src/lanes-column-title'
-import { createLanesColumnNote } from '#src/lanes-create-column-note'
+} from '#/src/lanes-collect-columns'
+import { LANES_BOARD_COLUMNS_CONFIG_KEY, readLanesBoardColumns } from '#/src/lanes-column-order'
+import { LANES_NO_VALUE_COLUMN, lanesColumnTitle } from '#/src/lanes-column-title'
+import { createLanesColumnNote } from '#/src/lanes-create-column-note'
 import {
 	LanesApplyCardDropError,
 	LanesRenderBoardError,
 	lanesErrorMessage,
-} from '#src/lanes-errors'
+} from '#/src/lanes-errors'
 import {
 	decodeForestWorktreeCopies,
 	forestCopyForWorktreePath,
@@ -72,18 +72,18 @@ import {
 	type ForestPluginApi,
 	getForestPluginApi,
 	lanesWorktreePathsForFile,
-} from '#src/lanes-forest-plugin'
-import { lanesFrontmatterKey } from '#src/lanes-frontmatter-key'
+} from '#/src/lanes-forest-plugin'
+import { lanesFrontmatterKey } from '#/src/lanes-frontmatter-key'
 import {
 	LANES_LANE_COLOR_NAMES,
 	LANES_LANE_COLORS_CONFIG_KEY,
 	isLanesLaneColorName,
 	readLanesLaneColors,
 	readLanesLegacyColumnColor,
-} from '#src/lanes-lane-colors'
-import { LanesOrderValue } from '#src/lanes-order-key'
-import type { LanesPluginSettingsHost } from '#src/lanes-plugin-settings'
-import { LanesPropertyChecklistModal } from '#src/lanes-property-checklist-modal'
+} from '#/src/lanes-lane-colors'
+import { LanesOrderValue } from '#/src/lanes-order-key'
+import type { LanesPluginSettingsHost } from '#/src/lanes-plugin-settings'
+import { LanesPropertyChecklistModal } from '#/src/lanes-property-checklist-modal'
 import {
 	LANES_CARD_BADGE_PROPERTIES_CONFIG_KEY,
 	LANES_CARD_LINK_PROPERTIES_CONFIG_KEY,
@@ -106,7 +106,7 @@ import {
 	readLanesLaneWidth,
 	readLanesOrderProperty,
 	readLanesTitlePropertyId,
-} from '#src/lanes-view-options'
+} from '#/src/lanes-view-options'
 
 /** Bases view type id. Must match registerBasesView and the `type:` field in a .base file. */
 export const LANES_VIEW_TYPE = 'lanes'

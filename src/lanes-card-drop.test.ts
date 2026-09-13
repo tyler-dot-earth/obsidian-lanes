@@ -5,8 +5,8 @@ import {
 	lanesGroupWriteValue,
 	lanesOrderKeyAfterDrop,
 	neighborOrderKeys,
-} from '#src/lanes-card-drop'
-import { LANES_NO_VALUE_COLUMN } from '#src/lanes-column-title'
+} from '#/src/lanes-card-drop'
+import { LANES_NO_VALUE_COLUMN } from '#/src/lanes-column-title'
 
 describe('insertDraggedPathAt', () => {
 	it('moves a path to the requested index', () => {

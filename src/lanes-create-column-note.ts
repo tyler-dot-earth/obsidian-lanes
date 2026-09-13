@@ -1,7 +1,7 @@
 import { Effect } from 'effect'
 import type { BasesView } from 'obsidian'
 
-import { LanesCreateColumnNoteError, lanesErrorMessage } from '#src/lanes-errors'
+import { LanesCreateColumnNoteError, lanesErrorMessage } from '#/src/lanes-errors'
 
 type LanesYamlScalar = string | number | boolean | null | undefined
 

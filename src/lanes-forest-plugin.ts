@@ -1,7 +1,7 @@
 import { Array, Option, Predicate, Result, Schema } from 'effect'
 import type { App, BasesPropertyId, TFile } from 'obsidian'
 
-import { lanesFrontmatterKey } from '#src/lanes-frontmatter-key'
+import { lanesFrontmatterKey } from '#/src/lanes-frontmatter-key'
 
 /** Structural copy object Forest.listCopiesForFile returns. */
 export const ForestWorktreeCopy = Schema.Struct({

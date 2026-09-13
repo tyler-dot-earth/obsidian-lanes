@@ -1,6 +1,6 @@
 import { type App, type BasesPropertyId, Modal, Setting } from 'obsidian'
 
-import { lanesPropertyIdsByDisplayName } from '#src/lanes-view-options'
+import { lanesPropertyIdsByDisplayName } from '#/src/lanes-view-options'
 
 /** Checklist of card properties for a board-bar option such as Link fields. */
 export class LanesPropertyChecklistModal extends Modal {

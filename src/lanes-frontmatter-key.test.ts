@@ -1,6 +1,6 @@
 import { assert, describe, it } from '@effect/vitest'
 
-import { lanesFrontmatterKey } from '#src/lanes-frontmatter-key'
+import { lanesFrontmatterKey } from '#/src/lanes-frontmatter-key'
 
 describe('lanesFrontmatterKey', () => {
 	it('strips the note. prefix', () => {

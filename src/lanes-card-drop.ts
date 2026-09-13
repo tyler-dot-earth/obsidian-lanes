@@ -1,7 +1,7 @@
 import { Array, Match, Option, Schema } from 'effect'
 
-import { LANES_NO_VALUE_COLUMN } from '#src/lanes-column-title'
-import { generateLanesOrderKey } from '#src/lanes-order-key'
+import { LANES_NO_VALUE_COLUMN } from '#/src/lanes-column-title'
+import { generateLanesOrderKey } from '#/src/lanes-order-key'
 
 /** Fractional keys of the cards immediately before and after a drop. */
 export const LanesNeighborOrderKeys = Schema.Struct({
