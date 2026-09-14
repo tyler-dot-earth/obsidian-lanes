@@ -1,0 +1,54 @@
+filters:
+  and:
+    - file.inFolder("cards")
+    - file.ext == "md"
+properties:
+  title:
+    displayName: Title
+  status:
+    displayName: Status
+  area:
+    displayName: Area
+  cover:
+    displayName: Cover
+  tags:
+    displayName: Tags
+  owner:
+    displayName: Owner
+  alley:
+    displayName: Alley
+views:
+  - type: lanes
+    name: Full
+    order:
+      - tags
+      - owner
+      - alley
+    image: cover
+    imageAspectRatio: 0.56
+    imageFit: cover
+    lanesProperty: note.status
+    cardTitleProperty: note.title
+    coverProperty: note.cover
+    boardColumns:
+      - idea
+      - parked
+      - running
+      - blocked
+      - done
+    laneColors:
+      idea: purple
+      parked: cyan
+      running: yellow
+      blocked: orange
+      done: green
+    cardBadgeProperties:
+      - note.tags
+    cardMonospaceProperties:
+      - note.alley
+    cardLinkProperties:
+      - note.owner
+    cardSort: mtime-desc
+    laneWidth: fill
+    lanePosition: center
+    cardOpenBehavior: split

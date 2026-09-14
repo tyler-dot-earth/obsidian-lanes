@@ -1,0 +1,41 @@
+filters:
+  and:
+    - file.inFolder("cards")
+    - file.ext == "md"
+properties:
+  title:
+    displayName: Title
+  stage:
+    displayName: Stage
+  cover:
+    displayName: Cover
+  tags:
+    displayName: Tags
+views:
+  - type: lanes
+    name: Active
+    order:
+      - tags
+    image: cover
+    imageAspectRatio: 0.56
+    imageFit: cover
+    lanesProperty: note.stage
+    cardTitleProperty: note.title
+    coverProperty: note.cover
+    boardColumns:
+      - backlog
+      - active
+      - done
+    collapsedColumns:
+      backlog: true
+      done: true
+    laneColors:
+      backlog: cyan
+      active: yellow
+      done: green
+    cardBadgeProperties:
+      - note.tags
+    cardSort: mtime-desc
+    laneWidth: lg
+    lanePosition: center
+    cardOpenBehavior: split

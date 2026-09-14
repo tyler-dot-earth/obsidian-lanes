@@ -1,6 +1,6 @@
-# Lanes
+# Lanes 🎳 an Obsidian kanban plugin
 
-Kanban board for Obsidian Bases. Bowling, swimlanes, you get it.
+Bowling, swimlanes, you get it. For Bases.
 
 ## Use
 
@@ -24,10 +24,13 @@ License is 0BSD.
 <img width="2364" height="2138" alt="Lanes board grouped by area into league, practice, and gear, with colored status badges." src="https://github.com/user-attachments/assets/8cf287f3-5a07-498b-b537-649efbfa499e" />
 <img width="2364" height="2138" alt="Lanes board with five status columns, cover images, tag chips, and an empty parked lane." src="https://github.com/user-attachments/assets/0f1549fc-0ddb-4f5e-95f6-c1b61072eb5b" />
 <img width="2364" height="2138" alt="Lanes board with idea, parked, and done collapsed. Running and blocked are open with large covers." src="https://github.com/user-attachments/assets/736ff106-e527-4dc4-97de-0b6cf2ce815b" />
-<img width="2364" height="2138" alt="Lanes board with five skinny status columns aligned left. Cards show covers and an empty parked lane" src="https://github.com/user-attachments/assets/225f6add-11da-436c-b1f0-2dfe023df026" />
+<img width="2364" height="2138" alt="Lanes board with five skinny status columns aligned left. Cards show covers and an empty parked lane." src="https://github.com/user-attachments/assets/225f6add-11da-436c-b1f0-2dfe023df026" />
 <img width="2364" height="2138" alt="Lanes board without covers. File-name titles, a wide idea column, and a running column on the left." src="https://github.com/user-attachments/assets/81cc3b5f-cba9-4d75-a230-fc6119483f38" />
 <img width="2364" height="2138" alt="Lanes board with backlog and done collapsed. The active column is centered and open, with cover images." src="https://github.com/user-attachments/assets/4b7f1c80-ed84-46b5-bda0-1eec22e5548f" />
 
+## Sample vault
+
+`example/vault` is a bowling-league vault with six boards (`board`, `narrow`, `collapsed`, `areas`, `text`, `active`). See `example/README.md`.
 
 ## Install for development
 
@@ -54,7 +57,7 @@ ln -sfn /path/to/obsidian-lanes/manifest.json /path/to/Vault/.obsidian/plugins/l
 ln -sfn /path/to/obsidian-lanes/styles.css /path/to/Vault/.obsidian/plugins/lanes/styles.css
 ```
 
-Add `"lanes"` to `Vault/.obsidian/community-plugins.json`. Reload Obsidian.
+Add `"lanes"` to `Vault/.obsidian/community-plugins.json`. Reload Obsidian. Turn **Restricted mode** off (Settings → Community plugins) or the plugin will not load.
 
 ## Scripts
 

@@ -1,5 +1,6 @@
 node_modules
 main.js
+app.css
 *.map
 data.json
 .direnv
@@ -9,3 +10,8 @@ coverage
 dist
 .idea
 .vscode
+example/vault/.obsidian/workspace.json
+example/vault/.obsidian/workspace-mobile.json
+example/vault/.obsidian/plugins/lanes/main.js
+example/vault/.obsidian/plugins/lanes/manifest.json
+example/vault/.obsidian/plugins/lanes/styles.css

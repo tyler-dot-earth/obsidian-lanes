@@ -1,0 +1,36 @@
+filters:
+  and:
+    - file.inFolder("cards")
+    - file.ext == "md"
+properties:
+  title:
+    displayName: Title
+  status:
+    displayName: Status
+  cover:
+    displayName: Cover
+views:
+  - type: lanes
+    name: Narrow
+    image: cover
+    imageAspectRatio: 0.56
+    imageFit: cover
+    lanesProperty: note.status
+    cardTitleProperty: note.title
+    coverProperty: note.cover
+    boardColumns:
+      - idea
+      - parked
+      - running
+      - blocked
+      - done
+    laneColors:
+      idea: purple
+      parked: cyan
+      running: yellow
+      blocked: orange
+      done: green
+    cardSort: mtime-desc
+    laneWidth: sm
+    lanePosition: left
+    cardOpenBehavior: split

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#1a2e28"/>
+  <rect x="48" y="48" width="544" height="264" fill="#2f6f62"/>
+  <text x="320" y="200" text-anchor="middle" fill="#dff5ef" font-size="42" font-family="ui-sans-serif, system-ui, sans-serif">Doubles</text>
+</svg>

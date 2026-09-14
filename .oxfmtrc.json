@@ -20,6 +20,7 @@
 		"**/dist/**",
 		"**/coverage/**",
 		"main.js",
+		"app.css",
 		"pnpm-lock.yaml",
 		"flake.lock",
 		"tools/oxlint/anti-slop/**"

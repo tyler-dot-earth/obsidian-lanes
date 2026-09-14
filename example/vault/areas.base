@@ -1,0 +1,42 @@
+filters:
+  and:
+    - file.inFolder("cards")
+    - file.ext == "md"
+properties:
+  title:
+    displayName: Title
+  status:
+    displayName: Status
+  area:
+    displayName: Area
+  tags:
+    displayName: Tags
+views:
+  - type: lanes
+    name: Areas
+    order:
+      - status
+    lanesProperty: note.area
+    cardTitleProperty: note.title
+    boardColumns:
+      - league
+      - practice
+      - gear
+      - alley
+    laneColors:
+      league: blue
+      practice: yellow
+      gear: orange
+      alley: cyan
+    cardBadgeProperties:
+      - note.status
+    badgeColors:
+      note.status:
+        idea: purple
+        running: yellow
+        blocked: red
+        done: green
+    cardSort: mtime-desc
+    laneWidth: md
+    lanePosition: left
+    cardOpenBehavior: split

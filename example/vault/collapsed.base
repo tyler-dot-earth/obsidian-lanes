@@ -1,0 +1,46 @@
+filters:
+  and:
+    - file.inFolder("cards")
+    - file.ext == "md"
+properties:
+  title:
+    displayName: Title
+  status:
+    displayName: Status
+  cover:
+    displayName: Cover
+  tags:
+    displayName: Tags
+views:
+  - type: lanes
+    name: Collapsed
+    order:
+      - tags
+    image: cover
+    imageAspectRatio: 0.56
+    imageFit: cover
+    lanesProperty: note.status
+    cardTitleProperty: note.title
+    coverProperty: note.cover
+    boardColumns:
+      - idea
+      - parked
+      - running
+      - blocked
+      - done
+    collapsedColumns:
+      idea: true
+      parked: true
+      done: true
+    laneColors:
+      idea: purple
+      parked: cyan
+      running: yellow
+      blocked: orange
+      done: green
+    cardBadgeProperties:
+      - note.tags
+    cardSort: mtime-desc
+    laneWidth: lg
+    lanePosition: center
+    cardOpenBehavior: split

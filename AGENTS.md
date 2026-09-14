@@ -29,7 +29,7 @@ Obsidian plugin. Kanban view for Bases. Plugin id `lanes`. View type `lanes`, no
 
 ## Install into a vault
 
-Plugin id is `lanes`. After `pnpm build` or `pnpm dev`, symlink (preferred) or copy only `main.js`, `manifest.json`, and `styles.css` into `Vault/.obsidian/plugins/lanes/`. Do not symlink the whole repo. Add `"lanes"` to `community-plugins.json` without dropping other ids.
+Plugin id is `lanes`. After `pnpm build` or `pnpm dev`, symlink (preferred) or copy only `main.js`, `manifest.json`, and `styles.css` into `Vault/.obsidian/plugins/lanes/`. Do not symlink the whole repo. Add `"lanes"` to `community-plugins.json` without dropping other ids. Screenshot vault is `example/vault`. See `example/README.md`.
 
 ## Tooling
 
