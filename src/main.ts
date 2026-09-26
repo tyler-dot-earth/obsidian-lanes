@@ -1,10 +1,10 @@
-import { Layer, Logger, type ManagedRuntime } from 'effect'
 import {
 	disposePluginRuntime,
 	makePluginRuntime,
 	type PluginDataStore,
 	pluginDataStoreLayerFromHost,
-} from 'effect-obsidian'
+} from '@tyler.earth/effect-obsidian'
+import { Layer, Logger, type ManagedRuntime } from 'effect'
 import { Notice, Plugin } from 'obsidian'
 
 import {

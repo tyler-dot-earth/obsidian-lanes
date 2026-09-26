@@ -1,5 +1,5 @@
+import type { PluginDataStore } from '@tyler.earth/effect-obsidian'
 import { Effect, Match, type ManagedRuntime, Option, Predicate, Schema } from 'effect'
-import type { PluginDataStore } from 'effect-obsidian'
 import {
 	type App,
 	type BasesEntry,

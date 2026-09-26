@@ -15,9 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Checkout effect-obsidian
-        run: git clone --depth 1 https://github.com/tyler-dot-earth/effect-obsidian.git ../effect-obsidian
-
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4

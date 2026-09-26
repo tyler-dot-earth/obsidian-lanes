@@ -1,5 +1,5 @@
+import { loadPluginSettings, type PluginDataStore } from '@tyler.earth/effect-obsidian'
 import { Array, Effect, Result, Schema } from 'effect'
-import { loadPluginSettings, type PluginDataStore } from 'effect-obsidian'
 
 /** Global plugin settings. View options override these defaults. */
 export const LanesPluginSettings = Schema.Struct({

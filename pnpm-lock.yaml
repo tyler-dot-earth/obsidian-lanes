@@ -8,12 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@tyler.earth/effect-obsidian':
+        specifier: 0.1.1
+        version: 0.1.1(effect@4.0.0-rc.113)(redis@6.2.1)
       effect:
         specifier: 4.0.0-rc.113
         version: 4.0.0-rc.113
-      effect-obsidian:
-        specifier: file:../effect-obsidian
-        version: file:../effect-obsidian(effect@4.0.0-rc.113)(redis@6.2.1)
       fractional-indexing:
         specifier: 4.0.0
         version: 4.0.0
@@ -668,6 +668,13 @@ packages:
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
+  '@tyler.earth/effect-obsidian@0.1.1':
+    resolution: {integrity: sha512-TU0eBK2Yv30qwoLRRa9fG0dPApBnDdMSo6AWR1+KpYlevahzPqtQ3zJK62LV7WXhgEAfvdUPzKptOzXSrItEMQ==}
+    engines: {node: '>=24'}
+    hasBin: true
+    peerDependencies:
+      effect: 4.0.0-rc.113
+
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
 
@@ -841,13 +848,6 @@ packages:
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
-
-  effect-obsidian@file:../effect-obsidian:
-    resolution: {directory: ../effect-obsidian, type: directory}
-    engines: {node: '>=24'}
-    hasBin: true
-    peerDependencies:
-      effect: 4.0.0-rc.113
 
   effect@4.0.0-rc.113:
     resolution: {integrity: sha512-uZ4Bh7KSlw2sdVdNDHPLSNjLGH+MWap7cheIHZoB/1T/ZJ3pvI4KiN3kUp50MpFKXhygOMmReJJOwWMQPwpPAg==}
@@ -1509,6 +1509,15 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
+  '@tyler.earth/effect-obsidian@0.1.1(effect@4.0.0-rc.113)(redis@6.2.1)':
+    dependencies:
+      '@effect/platform-node': 4.0.0-rc.113(effect@4.0.0-rc.113)(redis@6.2.1)
+      effect: 4.0.0-rc.113
+    transitivePeerDependencies:
+      - bufferutil
+      - redis
+      - utf-8-validate
+
   '@types/chai@5.2.3':
     dependencies:
       '@types/deep-eql': 4.0.2
@@ -1614,15 +1623,6 @@ snapshots:
   crelt@1.0.7: {}
 
   detect-libc@2.1.2: {}
-
-  effect-obsidian@file:../effect-obsidian(effect@4.0.0-rc.113)(redis@6.2.1):
-    dependencies:
-      '@effect/platform-node': 4.0.0-rc.113(effect@4.0.0-rc.113)(redis@6.2.1)
-      effect: 4.0.0-rc.113
-    transitivePeerDependencies:
-      - bufferutil
-      - redis
-      - utf-8-validate
 
   effect@4.0.0-rc.113: {}
 

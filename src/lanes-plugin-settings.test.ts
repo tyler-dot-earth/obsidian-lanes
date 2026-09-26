@@ -1,6 +1,6 @@
 import { assert, describe, it } from '@effect/vitest'
+import { memoryPluginDataStoreLayer } from '@tyler.earth/effect-obsidian'
 import { Effect } from 'effect'
-import { memoryPluginDataStoreLayer } from 'effect-obsidian'
 
 import { defaultLanesPluginSettings, loadLanesPluginSettings } from '#/src/lanes-plugin-settings'
 

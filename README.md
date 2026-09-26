@@ -4,7 +4,7 @@ Bowling, swimlanes, you get it. For Bases.
 
 ## Use
 
-Requires Obsidian 1.10.0 or newer, with Bases enabled.
+Requires Obsidian 1.10.2 or newer, with Bases enabled.
 
 1. Open a `.base` file.
 2. Add a view and choose **Lanes**.
@@ -36,16 +36,8 @@ License is 0BSD.
 
 Plugin id is `lanes`. Obsidian loads `Vault/.obsidian/plugins/lanes/`.
 
-Depends on a sibling checkout of [effect-obsidian](https://github.com/tyler-dot-earth/effect-obsidian):
-
-```text
-effect-obsidian/
-obsidian-lanes/
-```
-
 ```bash
-cd effect-obsidian && pnpm install
-cd ../obsidian-lanes && pnpm install && pnpm build
+pnpm install && pnpm build
 ```
 
 Symlink only `main.js`, `manifest.json`, and `styles.css`. Do not symlink the whole repo.
