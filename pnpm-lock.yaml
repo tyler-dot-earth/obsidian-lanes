@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@tyler.earth/effect-obsidian':
-        specifier: 0.1.1
-        version: 0.1.1(effect@4.0.0-rc.113)(redis@6.2.1)
+        specifier: 0.1.2
+        version: 0.1.2(effect@4.0.0-rc.113)(redis@6.2.1)
       effect:
         specifier: 4.0.0-rc.113
         version: 4.0.0-rc.113
@@ -668,8 +668,8 @@ packages:
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
-  '@tyler.earth/effect-obsidian@0.1.1':
-    resolution: {integrity: sha512-TU0eBK2Yv30qwoLRRa9fG0dPApBnDdMSo6AWR1+KpYlevahzPqtQ3zJK62LV7WXhgEAfvdUPzKptOzXSrItEMQ==}
+  '@tyler.earth/effect-obsidian@0.1.2':
+    resolution: {integrity: sha512-1lYavhLdjwJzXKKt7ssK77O7dBrAdG6mTahcfZhR5ddhHJZpSUU48ytyoTN9LrzKhN1kHAygNHHZasUGvO3kwQ==}
     engines: {node: '>=24'}
     hasBin: true
     peerDependencies:
@@ -1509,7 +1509,7 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
-  '@tyler.earth/effect-obsidian@0.1.1(effect@4.0.0-rc.113)(redis@6.2.1)':
+  '@tyler.earth/effect-obsidian@0.1.2(effect@4.0.0-rc.113)(redis@6.2.1)':
     dependencies:
       '@effect/platform-node': 4.0.0-rc.113(effect@4.0.0-rc.113)(redis@6.2.1)
       effect: 4.0.0-rc.113

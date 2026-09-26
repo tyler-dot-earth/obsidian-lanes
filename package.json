@@ -22,7 +22,7 @@
 		"version": "effect-obsidian bump-manifest && git add manifest.json versions.json"
 	},
 	"dependencies": {
-		"@tyler.earth/effect-obsidian": "0.1.1",
+		"@tyler.earth/effect-obsidian": "0.1.2",
 		"effect": "4.0.0-rc.113",
 		"fractional-indexing": "4.0.0"
 	},
