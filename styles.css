@@ -27,11 +27,6 @@
 	padding: 0.25em 0.75em 0;
 }
 
-.lanes-view-host button {
-	/* Obsidian pins button to --font-ui-small, which ignores the font size setting. */
-	font-size: 1em;
-}
-
 .lanes-board-bar-button {
 	height: 1.6em;
 	padding: 0 0.5em;
