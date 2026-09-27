@@ -9,7 +9,7 @@ export const LanesNeighborOrderKeys = Schema.Struct({
 	after: Schema.NullOr(Schema.String),
 })
 
-export interface LanesNeighborOrderKeys extends Schema.Schema.Type<typeof LanesNeighborOrderKeys> {}
+export type LanesNeighborOrderKeys = Schema.Schema.Type<typeof LanesNeighborOrderKeys>
 
 /** Kind of value stored in the group-by frontmatter field. */
 export const LanesGroupValueKind = Schema.Literals(['boolean', 'number', 'string'])

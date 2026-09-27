@@ -9,7 +9,7 @@ export const LanesColumnTitleInput = Schema.Struct({
 	keyText: Schema.NullOr(Schema.String),
 })
 
-export interface LanesColumnTitleInput extends Schema.Schema.Type<typeof LanesColumnTitleInput> {}
+export type LanesColumnTitleInput = Schema.Schema.Type<typeof LanesColumnTitleInput>
 
 /** Column title for a Bases groupBy key. Empty or missing keys become "No value". */
 export const lanesColumnTitle = (group: LanesColumnTitleInput): string => {

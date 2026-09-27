@@ -17,7 +17,7 @@ Board options live on the view, not in a giant plugin settings dump. Plugin sett
 
 If the Forest plugin is enabled, Worktree fields open that checkout's folder or preview this note from it.
 
-License is 0BSD.
+License is MIT.
 
 ## Screenshots
 

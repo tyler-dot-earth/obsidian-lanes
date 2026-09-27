@@ -281,9 +281,8 @@
 	width: 4.5em;
 	height: 3em;
 	object-fit: cover;
-	cursor: zoom-in;
 	border-radius: var(--radius-s);
-	cursor: pointer;
+	cursor: zoom-in;
 }
 
 .lanes-card-property-button {

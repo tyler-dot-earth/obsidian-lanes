@@ -740,13 +740,13 @@ export class LanesView extends BasesView {
 
 		const dragging = this.viewEl.querySelector('.lanes-card-dragging')
 
-		if (dragging instanceof HTMLElement) {
+		if (dragging?.instanceOf(HTMLElement) === true) {
 			dragging.classList.remove('lanes-card-dragging')
 		}
 
 		const draggingColumn = this.viewEl.querySelector('.lanes-column-dragging')
 
-		if (draggingColumn instanceof HTMLElement) {
+		if (draggingColumn?.instanceOf(HTMLElement) === true) {
 			draggingColumn.classList.remove('lanes-column-dragging')
 		}
 	}
@@ -758,7 +758,7 @@ export class LanesView extends BasesView {
 
 		const columnEl = event.target.closest('.lanes-column')
 
-		if (!(columnEl instanceof HTMLElement)) {
+		if (columnEl?.instanceOf(HTMLElement) !== true) {
 			return
 		}
 
@@ -779,7 +779,7 @@ export class LanesView extends BasesView {
 
 		const columnEl = event.target instanceof Element ? event.target.closest('.lanes-column') : null
 
-		if (columnEl instanceof HTMLElement) {
+		if (columnEl?.instanceOf(HTMLElement) === true) {
 			columnEl.classList.add('lanes-column-drop-target')
 		}
 	}
@@ -788,7 +788,7 @@ export class LanesView extends BasesView {
 		const boardEl = this.viewEl.querySelector('.lanes-board')
 		const draggedTitle = this.draggingLaneTitle
 
-		if (!(boardEl instanceof HTMLElement) || draggedTitle === null) {
+		if (boardEl?.instanceOf(HTMLElement) !== true || draggedTitle === null) {
 			return
 		}
 
@@ -1088,7 +1088,7 @@ export class LanesView extends BasesView {
 		const filePath = event.dataTransfer?.getData('text/plain')
 		const columnEl = event.target instanceof Element ? event.target.closest('.lanes-column') : null
 
-		if (filePath === undefined || filePath === '' || !(columnEl instanceof HTMLElement)) {
+		if (filePath === undefined || filePath === '' || columnEl?.instanceOf(HTMLElement) !== true) {
 			return
 		}
 
@@ -1150,7 +1150,7 @@ export class LanesView extends BasesView {
 
 		const cardsEl = columnEl.querySelector('.lanes-cards')
 
-		if (!(cardsEl instanceof HTMLElement)) {
+		if (cardsEl?.instanceOf(HTMLElement) !== true) {
 			return null
 		}
 
@@ -1257,14 +1257,14 @@ export class LanesView extends BasesView {
 
 		const columnEl = event.target instanceof Element ? event.target.closest('.lanes-column') : null
 
-		if (!(columnEl instanceof HTMLElement)) {
+		if (columnEl?.instanceOf(HTMLElement) !== true) {
 			return
 		}
 
 		columnEl.classList.add('lanes-column-drop-target')
 		const cardsEl = columnEl.querySelector('.lanes-cards')
 
-		if (!(cardsEl instanceof HTMLElement)) {
+		if (cardsEl?.instanceOf(HTMLElement) !== true) {
 			return
 		}
 
@@ -1345,7 +1345,7 @@ export class LanesView extends BasesView {
 
 		const cardEl = target.closest('.lanes-card')
 
-		if (!(cardEl instanceof HTMLElement)) {
+		if (cardEl?.instanceOf(HTMLElement) !== true) {
 			return null
 		}
 
@@ -1408,34 +1408,11 @@ export class LanesView extends BasesView {
 			return
 		}
 
-		if (
-			event.target instanceof Element &&
-			event.target.closest(
-				'a, .lanes-card-property-worktree, .lanes-card-cover, .lanes-card-property-image',
-			) !== null
-		) {
+		if (lanesClickOpensNestedControl(event.target)) {
 			return
 		}
 
-		const target = event.target
-
-		if (!(target instanceof Element)) {
-			return
-		}
-
-		const cardEl = target.closest('.lanes-card')
-
-		if (!(cardEl instanceof HTMLElement)) {
-			return
-		}
-
-		const filePath = cardEl.getAttribute('data-file-path')
-
-		if (filePath === null) {
-			return
-		}
-
-		const file = this.app.vault.getFileByPath(filePath)
+		const file = this.lanesCardFileFromEvent(event)
 
 		if (file !== null) {
 			this.openLanesCardFile(file)
@@ -1692,8 +1669,14 @@ const renderLanesCardPropertyLink = (
 	})
 }
 
-const lanesLaneTitleFromCard = (card: EventTarget | null): string | null => {
-	if (!(card instanceof HTMLElement)) {
+const lanesClickOpensNestedControl = (target: EventTarget | null): boolean =>
+	target instanceof Element &&
+	target.closest(
+		'a, .lanes-card-property-worktree, .lanes-card-cover, .lanes-card-property-image',
+	) !== null
+
+const lanesLaneTitleFromCard = (card: Element | null): string | null => {
+	if (card?.instanceOf(HTMLElement) !== true) {
 		return null
 	}
 
@@ -1707,7 +1690,7 @@ const lanesEventCard = (target: EventTarget | null): HTMLElement | null => {
 
 	const cardEl = target.closest('.lanes-card')
 
-	return cardEl instanceof HTMLElement ? cardEl : null
+	return cardEl?.instanceOf(HTMLElement) === true ? cardEl : null
 }
 
 const lanesVisibleDropCards = (cardsEl: HTMLElement, draggedPath: string | null): HTMLElement[] => {
@@ -1715,7 +1698,7 @@ const lanesVisibleDropCards = (cardsEl: HTMLElement, draggedPath: string | null)
 	const cards = cardsEl.querySelectorAll('.lanes-card')
 
 	for (const card of cards) {
-		if (card instanceof HTMLElement && card.getAttribute('data-file-path') !== draggedPath) {
+		if (card.instanceOf(HTMLElement) && card.getAttribute('data-file-path') !== draggedPath) {
 			visible.push(card)
 		}
 	}
@@ -1728,7 +1711,7 @@ const lanesColumnFilePaths = (columnEl: HTMLElement): string[] => {
 	const cards = columnEl.querySelectorAll('.lanes-card')
 
 	for (const card of cards) {
-		if (!(card instanceof HTMLElement)) {
+		if (!card.instanceOf(HTMLElement)) {
 			continue
 		}
 
@@ -1752,7 +1735,7 @@ const lanesDropInsertIndex = (
 	let index = 0
 
 	for (const card of cards) {
-		if (!(card instanceof HTMLElement)) {
+		if (!card.instanceOf(HTMLElement)) {
 			continue
 		}
 
@@ -1780,7 +1763,7 @@ const lanesBoardColumnTitles = (boardEl: HTMLElement): string[] => {
 	const columns = boardEl.querySelectorAll('.lanes-column')
 
 	for (const column of columns) {
-		if (!(column instanceof HTMLElement)) {
+		if (!column.instanceOf(HTMLElement)) {
 			continue
 		}
 
@@ -1806,7 +1789,7 @@ const lanesColumnInsertIndex = (
 	let index = 0
 
 	for (const column of columns) {
-		if (!(column instanceof HTMLElement)) {
+		if (!column.instanceOf(HTMLElement)) {
 			continue
 		}
 

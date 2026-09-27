@@ -33,7 +33,7 @@ export const LanesCardPropertyLink = Schema.Struct({
 	kind: Schema.Literals(['url', 'wiki', 'image']),
 })
 
-export interface LanesCardPropertyLink extends Schema.Schema.Type<typeof LanesCardPropertyLink> {}
+export type LanesCardPropertyLink = Schema.Schema.Type<typeof LanesCardPropertyLink>
 
 /** One configured property row on a card. */
 export const LanesCardPropertyField = Schema.Struct({
@@ -45,7 +45,7 @@ export const LanesCardPropertyField = Schema.Struct({
 	propertyId: Schema.String,
 })
 
-export interface LanesCardPropertyField extends Schema.Schema.Type<typeof LanesCardPropertyField> {
+export type LanesCardPropertyField = Schema.Schema.Type<typeof LanesCardPropertyField> & {
 	readonly links: readonly LanesCardPropertyLink[]
 }
 

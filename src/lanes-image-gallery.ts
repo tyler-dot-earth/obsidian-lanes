@@ -19,16 +19,16 @@ const appendLanesGalleryButton = (
 	label: string,
 	onClick: () => void,
 ): void => {
-	const buttonEl = document.createElement('button')
-
-	buttonEl.className = className
-	buttonEl.type = 'button'
-	buttonEl.textContent = label
-	buttonEl.addEventListener('click', (event: MouseEvent) => {
-		event.stopPropagation()
-		onClick()
-	})
-	parentEl.appendChild(buttonEl)
+	parentEl.createEl(
+		'button',
+		{ cls: className, text: label, attr: { type: 'button' } },
+		(buttonEl) => {
+			buttonEl.addEventListener('click', (event: MouseEvent) => {
+				event.stopPropagation()
+				onClick()
+			})
+		},
+	)
 }
 
 /** Full-screen lightbox for card covers and screenshot properties. */
@@ -91,9 +91,8 @@ export class LanesImageGallery {
 	}
 
 	private renderLanesImageGallery(): void {
-		const overlayEl = document.createElement('div')
+		const overlayEl = document.body.createEl('div', { cls: 'lanes-image-gallery' })
 
-		overlayEl.className = 'lanes-image-gallery'
 		overlayEl.addEventListener('click', (event: MouseEvent) => {
 			if (event.target === overlayEl) {
 				this.close()
@@ -112,16 +111,9 @@ export class LanesImageGallery {
 			})
 		}
 
-		const imageEl = document.createElement('img')
+		const imageEl = overlayEl.createEl('img', { cls: 'lanes-image-gallery-image' })
+		const captionEl = overlayEl.createEl('div', { cls: 'lanes-image-gallery-caption' })
 
-		imageEl.className = 'lanes-image-gallery-image'
-		overlayEl.appendChild(imageEl)
-
-		const captionEl = document.createElement('div')
-
-		captionEl.className = 'lanes-image-gallery-caption'
-		overlayEl.appendChild(captionEl)
-		document.body.appendChild(overlayEl)
 		this.overlayEl = overlayEl
 		this.imageEl = imageEl
 		this.captionEl = captionEl

@@ -41,7 +41,7 @@ export const LanesCardSortKey = Schema.Struct({
 	basename: Schema.String,
 })
 
-export interface LanesCardSortKey extends Schema.Schema.Type<typeof LanesCardSortKey> {}
+export type LanesCardSortKey = Schema.Schema.Type<typeof LanesCardSortKey>
 
 /** Reads the lane sort mode from view config. Missing or invalid values are manual. */
 export const readLanesCardSort = (config: BasesViewConfig): LanesCardSort =>

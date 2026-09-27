@@ -85,6 +85,14 @@ export default defineConfig({
 			},
 		},
 		{
+			files: ['src/lanes-setting-tab.ts'],
+			rules: {
+				'anti-slop/no-unknown-parameters': 'off',
+				'anti-slop/no-unknown-returns': 'off',
+				'anti-slop/no-runtime-typeof': 'off',
+			},
+		},
+		{
 			files: ['src/lanes-forest-plugin.ts'],
 			rules: {
 				'anti-slop/no-unknown-parameters': 'off',

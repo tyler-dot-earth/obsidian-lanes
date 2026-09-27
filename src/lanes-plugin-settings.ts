@@ -8,7 +8,7 @@ export const LanesPluginSettings = Schema.Struct({
 	defaultCardTitleProperty: Schema.optionalKey(Schema.String),
 })
 
-export interface LanesPluginSettings extends Schema.Schema.Type<typeof LanesPluginSettings> {}
+export type LanesPluginSettings = Schema.Schema.Type<typeof LanesPluginSettings>
 
 export const defaultLanesPluginSettings: LanesPluginSettings = LanesPluginSettings.make({})
 

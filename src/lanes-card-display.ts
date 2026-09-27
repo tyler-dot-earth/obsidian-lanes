@@ -8,7 +8,7 @@ export const LanesCardTitleInput = Schema.Struct({
 	fileBasename: Schema.String,
 })
 
-export interface LanesCardTitleInput extends Schema.Schema.Type<typeof LanesCardTitleInput> {}
+export type LanesCardTitleInput = Schema.Schema.Type<typeof LanesCardTitleInput>
 
 /** Card title: property text when present, otherwise the file basename. */
 export const lanesCardTitleText = (input: LanesCardTitleInput): string => {
@@ -51,6 +51,6 @@ export const LanesCardDisplay = Schema.Struct({
 	coverSrc: Schema.NullOr(Schema.String),
 })
 
-export interface LanesCardDisplay extends Schema.Schema.Type<typeof LanesCardDisplay> {
+export type LanesCardDisplay = Schema.Schema.Type<typeof LanesCardDisplay> & {
 	readonly properties: readonly LanesCardPropertyField[]
 }

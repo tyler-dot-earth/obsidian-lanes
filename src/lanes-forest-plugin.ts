@@ -12,7 +12,7 @@ export const ForestWorktreeCopy = Schema.Struct({
 	vaultRelativePath: Schema.String,
 })
 
-export interface ForestWorktreeCopy extends Schema.Schema.Type<typeof ForestWorktreeCopy> {}
+export type ForestWorktreeCopy = Schema.Schema.Type<typeof ForestWorktreeCopy>
 
 /** Duck-typed Forest plugin methods Lanes may call. Missing plugin means Forest is off. */
 export interface ForestPluginApi {

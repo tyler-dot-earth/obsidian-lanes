@@ -1,4 +1,4 @@
-import { type App, Plugin, PluginSettingTab, Setting } from 'obsidian'
+import { type App, Plugin, PluginSettingTab, type SettingDefinitionItem } from 'obsidian'
 
 import {
 	lanesPluginSettingsFromDefaults,
@@ -14,37 +14,58 @@ export class LanesSettingTab extends PluginSettingTab {
 		this.settingsHost = settingsHost
 	}
 
-	override display(): void {
-		const { containerEl } = this
-		containerEl.empty()
-		containerEl.createEl('p', {
-			text: 'Defaults apply to Lanes views that have not set their own Group cards by or Card title.',
-		})
-
-		new Setting(containerEl)
-			.setName('Default group-by property')
-			.setDesc('Example: status. Used when a view has no Group cards by.')
-			.addText((text) => {
-				text.setPlaceholder('status')
-				text.setValue(this.settingsHost.settings.defaultLanesProperty ?? '')
-				text.onChange((value) => {
-					this.updateDefault('defaultLanesProperty', value)
-				})
-			})
-
-		new Setting(containerEl)
-			.setName('Default card title property')
-			.setDesc('Example: codename. Used when a view has no Card title. Empty means file name.')
-			.addText((text) => {
-				text.setPlaceholder('codename')
-				text.setValue(this.settingsHost.settings.defaultCardTitleProperty ?? '')
-				text.onChange((value) => {
-					this.updateDefault('defaultCardTitleProperty', value)
-				})
-			})
+	override getSettingDefinitions(): SettingDefinitionItem[] {
+		return [
+			{
+				name: 'Defaults',
+				desc: 'Defaults apply to Lanes views that have not set their own Group cards by or Card title.',
+			},
+			{
+				name: 'Default group-by property',
+				desc: 'Example: status. Used when a view has no Group cards by.',
+				control: {
+					type: 'text',
+					key: 'defaultLanesProperty',
+					placeholder: 'status',
+				},
+			},
+			{
+				name: 'Default card title property',
+				desc: 'Example: codename. Used when a view has no Card title. Empty means file name.',
+				control: {
+					type: 'text',
+					key: 'defaultCardTitleProperty',
+					placeholder: 'codename',
+				},
+			},
+		]
 	}
 
-	private updateDefault(
+	override getControlValue(key: string): unknown {
+		if (key === 'defaultLanesProperty') {
+			return this.settingsHost.settings.defaultLanesProperty ?? ''
+		}
+
+		if (key === 'defaultCardTitleProperty') {
+			return this.settingsHost.settings.defaultCardTitleProperty ?? ''
+		}
+
+		return undefined
+	}
+
+	override setControlValue(key: string, value: unknown): void {
+		if (key !== 'defaultLanesProperty' && key !== 'defaultCardTitleProperty') {
+			return
+		}
+
+		if (typeof value !== 'string') {
+			return
+		}
+
+		this.writeDefault(key, value)
+	}
+
+	private writeDefault(
 		key: 'defaultLanesProperty' | 'defaultCardTitleProperty',
 		value: string,
 	): void {

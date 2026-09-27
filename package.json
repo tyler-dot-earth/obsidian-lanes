@@ -3,7 +3,7 @@
 	"version": "0.1.1",
 	"private": true,
 	"description": "Kanban view for Obsidian Bases",
-	"license": "0BSD",
+	"license": "MIT",
 	"type": "module",
 	"main": "main.js",
 	"imports": {
