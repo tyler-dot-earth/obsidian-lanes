@@ -2,6 +2,8 @@
 	position: relative;
 	height: 100%;
 	overflow: hidden;
+	/* Obsidian writes the font size setting onto body, not the UI size tokens. */
+	font-size: var(--font-text-size);
 }
 
 .lanes-view {
@@ -13,7 +15,7 @@
 }
 
 .lanes-placeholder {
-	padding: var(--size-4-4);
+	padding: 1em;
 	color: var(--text-muted);
 }
 
@@ -21,18 +23,23 @@
 	display: flex;
 	flex-shrink: 0;
 	flex-wrap: wrap;
-	gap: var(--size-2-2);
-	padding: var(--size-2-2) var(--size-4-3) 0;
+	gap: 0.25em;
+	padding: 0.25em 0.75em 0;
+}
+
+.lanes-view-host button {
+	/* Obsidian pins button to --font-ui-small, which ignores the font size setting. */
+	font-size: 1em;
 }
 
 .lanes-board-bar-button {
-	height: calc(var(--input-height) * 0.85);
-	padding: 0 var(--size-4-2);
+	height: 1.6em;
+	padding: 0 0.5em;
 	border: none;
 	background-color: transparent;
 	box-shadow: none;
 	color: var(--text-muted);
-	font-size: var(--font-ui-smaller);
+	font-size: 0.8em;
 }
 
 .lanes-board-bar-button:hover,
@@ -45,11 +52,11 @@
 	display: flex;
 	flex: 1 1 auto;
 	align-items: stretch;
-	gap: var(--size-4-3);
+	gap: 0.75em;
 	min-height: 0;
 	overflow-x: auto;
 	overflow-y: hidden;
-	padding: var(--size-4-3);
+	padding: 0.75em;
 }
 
 .lanes-board[data-lane-position='center'] {
@@ -58,9 +65,9 @@
 
 .lanes-column {
 	display: flex;
-	flex: 0 0 16rem;
+	flex: 0 0 16em;
 	flex-direction: column;
-	min-width: 16rem;
+	min-width: 16em;
 	height: 100%;
 	min-height: 0;
 	background-color: var(--background-secondary);
@@ -99,9 +106,9 @@
 .lanes-column-header {
 	display: flex;
 	align-items: center;
-	gap: var(--size-2-2);
-	padding: var(--size-4-2);
-	box-shadow: inset 0 3px 0 var(--lanes-column-accent, transparent);
+	gap: 0.25em;
+	padding: 0.5em;
+	box-shadow: inset 0 0.2em 0 var(--lanes-column-accent, transparent);
 }
 
 .lanes-column-title {
@@ -117,8 +124,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: var(--size-4-4);
-	height: var(--size-4-4);
+	width: 1.6em;
+	height: 1.6em;
 	padding: 0;
 	border: none;
 	background-color: transparent;
@@ -133,9 +140,9 @@
 }
 
 .lanes-column-collapsed {
-	flex: 0 0 2.75rem;
-	min-width: 2.75rem;
-	max-width: 2.75rem;
+	flex: 0 0 2.75em;
+	min-width: 2.75em;
+	max-width: 2.75em;
 }
 
 .lanes-column-collapsed .lanes-cards {
@@ -147,7 +154,7 @@
 	align-items: center;
 	justify-content: flex-start;
 	height: 100%;
-	padding: var(--size-4-2) 0;
+	padding: 0.5em 0;
 }
 
 .lanes-column-collapsed .lanes-column-collapse {
@@ -205,13 +212,13 @@
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	gap: var(--size-4-2);
+	gap: 0.5em;
 	overflow-y: auto;
-	padding: var(--size-4-2);
+	padding: 0.5em;
 }
 
 .lanes-card {
-	padding: var(--size-4-2);
+	padding: 0.5em;
 	background-color: var(--background-primary);
 	border-radius: var(--radius-s);
 	cursor: grab;
@@ -229,37 +236,38 @@
 	display: block;
 	width: 100%;
 	aspect-ratio: 16 / 9;
-	margin-bottom: var(--size-4-2);
+	margin-bottom: 0.5em;
 	object-fit: cover;
 	border-radius: var(--radius-s);
 	cursor: zoom-in;
 }
 
 .lanes-card-title {
+	font-size: 1em;
 	word-break: break-word;
 }
 
 .lanes-card-property {
-	margin-top: var(--size-4-2);
+	margin-top: 0.5em;
 }
 
 .lanes-card-property-label {
 	margin-bottom: 0.15em;
 	color: var(--text-muted);
-	font-size: var(--font-ui-smaller);
+	font-size: 0.8em;
 	font-weight: 600;
 }
 
 .lanes-card-property-values {
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--size-2-2);
+	gap: 0.25em;
 }
 
 .lanes-card-property-text {
 	flex: 1 0 100%;
 	color: var(--text-muted);
-	font-size: var(--font-ui-smaller);
+	font-size: 0.8em;
 }
 
 .lanes-card-property-mono .lanes-card-property-text,
@@ -271,12 +279,12 @@
 
 .lanes-card-property-link,
 .lanes-card-property-button {
-	font-size: var(--font-ui-smaller);
+	font-size: 0.8em;
 }
 
 .lanes-card-property-image {
-	width: 4.5rem;
-	height: 3rem;
+	width: 4.5em;
+	height: 3em;
 	object-fit: cover;
 	cursor: zoom-in;
 	border-radius: var(--radius-s);
@@ -296,7 +304,7 @@
 	background-color: var(--background-secondary);
 	border-radius: var(--radius-s);
 	color: var(--text-muted);
-	font-size: var(--font-ui-smaller);
+	font-size: 0.8em;
 	cursor: context-menu;
 }
 
@@ -343,14 +351,14 @@
 
 .lanes-drop-indicator {
 	flex-shrink: 0;
-	height: 3px;
+	height: 0.2em;
 	background-color: var(--interactive-accent);
 	border-radius: 99px;
 	pointer-events: none;
 }
 
 .lanes-column-drop-target {
-	box-shadow: inset 0 0 0 2px var(--interactive-accent);
+	box-shadow: inset 0 0 0 0.125em var(--interactive-accent);
 }
 
 .lanes-image-gallery {
@@ -361,47 +369,50 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: var(--size-4-3);
-	padding: var(--size-4-4);
+	gap: 0.75em;
+	padding: 1em;
 	background-color: rgba(0, 0, 0, 0.82);
+	/* Mounted on document.body, so it does not inherit the board's font size. */
+	font-size: var(--font-text-size);
 }
 
 .lanes-image-gallery-image {
-	max-width: min(96vw, 72rem);
+	max-width: min(96vw, 72em);
 	max-height: 82vh;
 	object-fit: contain;
 }
 
 .lanes-image-gallery-caption {
 	color: var(--text-on-accent, #fff);
-	font-size: var(--font-ui-small);
+	font-size: 0.875em;
 }
 
 .lanes-image-gallery-close,
 .lanes-image-gallery-prev,
 .lanes-image-gallery-next {
 	position: absolute;
-	padding: var(--size-2-2) var(--size-4-3);
+	padding: 0.25em 0.75em;
 	border: none;
 	background-color: var(--background-secondary);
 	color: var(--text-normal);
+	font-size: 1em;
 	border-radius: var(--radius-s);
 	cursor: pointer;
 }
 
 .lanes-image-gallery-close {
-	top: var(--size-4-3);
-	right: var(--size-4-3);
+	top: 0.75em;
+	right: 0.75em;
 }
 
 .lanes-image-gallery-prev {
 	top: 50%;
-	left: var(--size-4-3);
+	left: 0.75em;
 	transform: translateY(-50%);
 }
 
 .lanes-image-gallery-next {
 	top: 50%;
-	right: var(--size-4-3);
+	right: 0.75em;
 	transform: translateY(-50%);
 }
