@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-lanes",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"private": true,
 	"description": "Kanban view for Obsidian Bases",
 	"license": "MIT",
